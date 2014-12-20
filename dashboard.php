@@ -10,7 +10,7 @@ else {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="dashboardApp">
 
 <head>
     <meta charset="utf-8">
@@ -19,7 +19,7 @@ else {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>Dashboard</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="assets/vendor/css/bootstrap.min.css" rel="stylesheet">
@@ -29,6 +29,20 @@ else {
 
     <!-- Custom Fonts -->
     <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    <!-- jQuery -->
+    <script src="assets/vendor/js/jquery.min.js"></script>
+    
+    <!-- Angular -->
+    <script src="assets/vendor/js/angular.min.js"></script>
+    <script src="assets/vendor/js/angular-route.min.js"></script>
+    <script src="assets/vendor/js/angular-ui-bootstrap.min.js"></script>
+    
+    <!-- Angular custom scripts -->
+    <script src="assets/js/dashboardApp.js"></script>
+    <script src="assets/js/services.js"></script>
+    <script src="assets/js/controllers/dashboardController.js"></script>
+    <script src="assets/js/controllers/schoolYearController.js"></script>
     
 </head>
 
@@ -40,27 +54,10 @@ else {
 
         <div id="page-wrapper">
             <div class="container-fluid">
-                
-                <h1 class="page-header">Dashboard <small>Account Overview</small></h1>
-                
-                <br><br><br><br><br><br><br>
-                <br><br><br><br><br><br><br><br>
-                <br><br><br><br><br><br><br><br>
-                <br><br><br><br><br><br><br><br>
-                <br><br><br><br><br><br><br><br>
-                <br><br><br><br><br><br><br><br>
-                
+                <div ng-view></div>
             </div>
         </div>
     </div>
-
-    <!-- jQuery -->
-    <script src="assets/vendor/js/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="assets/vendor/js/bootstrap.min.js"></script>
-    
-    <script>$("#dashboard").addClass("active");</script>
 
 </body>
 

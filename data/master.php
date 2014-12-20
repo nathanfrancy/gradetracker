@@ -12,5 +12,6 @@ function connect_db() {
 }
 
 require_once('_account.php');
+require_once('_schoolyears.php');
 
 ?>

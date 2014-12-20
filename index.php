@@ -3,7 +3,7 @@
  * Start the session and redirect if the user is logged in
  */
 session_start();
-if (isset($_SESSION['auth_id'])) { header("Location: home.php"); }
+if (isset($_SESSION['auth_id'])) { header("Location: dashboard.php"); }
 
 /*=========================================================
  * If there is feedback, save in variable for later
