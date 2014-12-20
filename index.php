@@ -69,7 +69,7 @@ if (isset($_GET['feedback'])) { $feedback = $_GET['feedback']; $feedbackValid = 
                     $(".form-signin").fadeOut();
                     setTimeout(
                         function () {
-                            window.location = "home.php";
+                            window.location = "dashboard.php";
                         }, 500);
                 } else {
                     $("#loginAlert").html(data.message);

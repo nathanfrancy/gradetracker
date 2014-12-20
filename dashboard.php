@@ -13,7 +13,6 @@ else {
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,8 +41,7 @@ else {
         <div id="page-wrapper">
             <div class="container-fluid">
                 
-                <br>
-                
+                <h1 class="page-header">Dashboard <small>Account Overview</small></h1>
                 
                 <br><br><br><br><br><br><br>
                 <br><br><br><br><br><br><br><br>
@@ -61,6 +59,8 @@ else {
 
     <!-- Bootstrap Core JavaScript -->
     <script src="assets/vendor/js/bootstrap.min.js"></script>
+    
+    <script>$("#dashboard").addClass("active");</script>
 
 </body>
 
