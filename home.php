@@ -1,3 +1,14 @@
+<?php 
+session_start();
+$user = null;
+if ( isset($_SESSION['auth_id']) && ($_SESSION['auth_id'] != 0) ) {
+    require('data/master.php');
+    $user = getUser($_SESSION['auth_id']);
+}
+else {
+    header("Location: index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,17 +34,18 @@
 </head>
 
 <body>
-
     <div id="wrapper">
 
         <!-- Navbar -->
-        <?php require('partials/navbar.html'); ?>
+        <?php require('partials/navbar.php'); ?>
 
         <div id="page-wrapper">
-
             <div class="container-fluid">
                 
-                <br><br><br><br><br><br><br><br>
+                <br>
+                
+                
+                <br><br><br><br><br><br><br>
                 <br><br><br><br><br><br><br><br>
                 <br><br><br><br><br><br><br><br>
                 <br><br><br><br><br><br><br><br>
@@ -41,11 +53,8 @@
                 <br><br><br><br><br><br><br><br>
                 
             </div>
-
         </div>
-
     </div>
-    <!-- /#wrapper -->
 
     <!-- jQuery -->
     <script src="assets/vendor/js/jquery.min.js"></script>

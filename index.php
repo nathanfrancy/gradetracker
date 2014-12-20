@@ -1,3 +1,17 @@
+<?php
+/*=========================================================
+ * Start the session and redirect if the user is logged in
+ */
+session_start();
+if (isset($_SESSION['auth_id'])) { header("Location: home.php"); }
+
+/*=========================================================
+ * If there is feedback, save in variable for later
+ */
+$feedback = "";
+$feedbackValid = false;
+if (isset($_GET['feedback'])) { $feedback = $_GET['feedback']; $feedbackValid = true; }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,6 +29,8 @@
 
     <!-- Custom styles for this template -->
     <link href="assets/vendor/css/signin.css" rel="stylesheet">
+    
+    <script src="assets/vendor/js/jquery.min.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -25,16 +41,48 @@
 
 <body>
     <div class="container">
-        <form class="form-signin" role="form">
-            <h2 class="form-signin-heading">Please sign in</h2>
-            <label for="inputUsername" class="sr-only">Username</label>
-            <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        </form>
+        <form class="form-signin" action="controllers/login.php" method="post" role="form">
+            <h1 class="text-center">Sign in</h1><br>
+			<input type="text" class="form-control" id="username" placeholder="Username" required autofocus>
+			<input type="password" class="form-control" id="password" placeholder="Password" required>
+			<button class="btn btn-lg btn-primary btn-block" id="signInButton">Sign in</button>
+			<br /><br />
+			<div class="alert alert-danger" id="loginAlert" role="alert" style="display: none;"></div>
+		</form>
     </div>
 </body>
+    
+<script>
+    $("#signInButton").click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "controllers/login.php",
+            data: {
+                controllerType: "login",
+                username: $("#username").val().trim(),
+                password: $("#password").val()
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.id !== 0) {
+                    $(".form-signin").fadeOut();
+                    setTimeout(
+                        function () {
+                            window.location = "home.php";
+                        }, 500);
+                } else {
+                    $("#loginAlert").html(data.message);
+                    $("#loginAlert").fadeIn();
+                    setTimeout(
+                        function () {
+                            $("#loginAlert").fadeOut();
+                        }, 5000);
+                }
+            }
+        });
+    });
+</script>
 
 </html>
 
