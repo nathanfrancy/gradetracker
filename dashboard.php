@@ -41,6 +41,8 @@ else {
     <!-- Angular custom scripts -->
     <script src="assets/js/dashboardApp.js"></script>
     <script src="assets/js/services.js"></script>
+    
+    <!-- Angular custom controllers -->
     <script src="assets/js/controllers/dashboardController.js"></script>
     <script src="assets/js/controllers/schoolYearController.js"></script>
     

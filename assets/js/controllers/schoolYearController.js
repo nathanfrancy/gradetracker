@@ -5,3 +5,13 @@ dashboardApp.controller('SchoolYearHomeCtrl', ['$scope', 'schoolYearFactory', fu
         })
         .error(function (error) {});
 }]);
+
+dashboardApp.controller('SchoolYearAddCtrl', ['$scope', '$window', 'schoolYearFactory', function ($scope, $window, schoolYearFactory) {
+    $scope.add = function() {
+        schoolYearFactory.addSchoolYear($scope.title)
+        .success(function (data) {
+            $window.location.href = '#/browse';
+        })
+        .error(function (error) {});
+    }
+}]);

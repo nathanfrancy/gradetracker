@@ -4,6 +4,10 @@ angular.module('dashboardApp').factory('schoolYearFactory', ['$http', function($
     dataFactory.getAllSchoolYears = function () {
         return $http.get('/api/get/?rq=getAllSchoolYears');
     };
+    dataFactory.addSchoolYear = function (title) {
+        return $http({ url: 'api/add.php', dataType: 'json', method: 'PUT',
+                    data: { rq: 'addSchoolYear', title: title }, headers: { "Content-Type": "application/json"}});
+    };
     
     /*
     dataFactory.getSingleCity = function (id) {

@@ -22,3 +22,19 @@ function getAllSchoolYears($user_id) {
 	mysqli_stmt_close($stmt);
 	return $schoolyears;
 }
+
+function addSchoolYear($title) {
+    $link = connect_db();
+	$sql = "INSERT INTO  `schoolyear` (`title`, `user_id`) VALUES (?, ?)";
+	$stmt = $link->stmt_init();
+	$stmt->prepare($sql);
+	$stmt->bind_param('si', $link->real_escape_string($title), $_SESSION['auth_id']);
+	$stmt->execute();
+	$id = $link->insert_id;
+	mysqli_stmt_close($stmt);
+	$link->close();
+	
+	return $id;
+}
+
+?>

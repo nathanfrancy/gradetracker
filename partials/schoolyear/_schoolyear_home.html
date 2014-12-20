@@ -1,13 +1,16 @@
 <h1 class="page-header">Browse <small>School Years</small></h1>
+<a href="#/browse/schoolYear/add" class="btn btn-primary" style="margin-bottom: 10px;"><i class="fa fa-fw fa-plus-square"></i> Add</a>
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">School Years</h3>
     </div>
     <div class="panel-body">
-        <div class="list-group">
-            <a ng-repeat="schoolYear in schoolYears" href="#/schoolYear/{{ schoolYear.id }}" class="list-group-item">
-                {{ schoolYear.title }}
-            </a>
-        </div>
+        <ul class="list-group">
+            <li ng-repeat="schoolYear in schoolYears" class="list-group-item">
+                {{ schoolYear.title }}&nbsp;
+                <a href="#/browse/schoolYear/{{ schoolYear.id }}/quarters">Quarters</a>&nbsp;
+                <a href="#/browse/schoolYear/{{ schoolYear.id }}">Edit</a>&nbsp;
+            </li>
+        </ul>
     </div>
 </div>
