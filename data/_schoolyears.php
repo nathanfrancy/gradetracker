@@ -5,7 +5,7 @@ function getAllSchoolYears($user_id) {
 	
 	// Connect and initialize sql and prepared statement template
 	$link = connect_db();
-	$sql = "SELECT * FROM `schoolyear` WHERE `user_id` = ? ORDER BY `id`";
+	$sql = "SELECT * FROM `schoolyear` WHERE `user_id` = ? ORDER BY `title` desc";
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
     $stmt->bind_param('i', $user_id);
