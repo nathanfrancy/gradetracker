@@ -2,7 +2,7 @@ angular.module('dashboardApp').factory('schoolYearFactory', ['$http', function($
     var dataFactory = {};
 
     dataFactory.getAllSchoolYears = function () {
-        return $http.get('/api/get/?rq=getAllSchoolYears');
+        return $http.get('/api/get.php?rq=getAllSchoolYears');
     };
     dataFactory.addSchoolYear = function (title) {
         return $http({ url: 'api/add.php', dataType: 'json', method: 'PUT',
