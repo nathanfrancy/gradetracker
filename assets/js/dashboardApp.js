@@ -23,8 +23,8 @@ $routeProvider
         })
     .when('/browse/schoolyear/:id',
         {
-          controller: 'SchoolYearHomeCtrl',
-          templateUrl: 'partials/schoolyear/_schoolyear_home.html'
+          controller: 'SchoolYearSpecificHomeCtrl',
+          templateUrl: 'partials/schoolyear/_schoolyear_specifichome.html'
         })
     .when('/schoolyear/add',
         {

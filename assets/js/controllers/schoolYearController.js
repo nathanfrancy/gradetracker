@@ -6,6 +6,16 @@ dashboardApp.controller('SchoolYearHomeCtrl', ['$scope', 'schoolYearFactory', fu
         .error(function (error) {});
 }]);
 
+dashboardApp.controller('SchoolYearSpecificHomeCtrl', ['$scope', '$routeParams', 'schoolYearFactory', function ($scope, $routeParams, schoolYearFactory) {
+    $scope.id = $routeParams.id;
+
+    schoolYearFactory.getSchoolYear($scope.id)
+        .success(function (data) {
+            $scope.schoolyear = data;
+        })
+        .error(function (error) {});
+}]);
+
 dashboardApp.controller('SchoolYearAddCtrl', ['$scope', '$window', 'schoolYearFactory', function ($scope, $window, schoolYearFactory) {
     $scope.add = function() {
         schoolYearFactory.addSchoolYear($scope.title)
