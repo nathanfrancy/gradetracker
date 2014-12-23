@@ -15,3 +15,21 @@ dashboardApp.controller('SchoolYearAddCtrl', ['$scope', '$window', 'schoolYearFa
         .error(function (error) {});
     }
 }]);
+
+dashboardApp.controller('SchoolYearEditCtrl', ['$scope', '$window', '$routeParams', 'schoolYearFactory', function ($scope, $window, $routeParams, schoolYearFactory) {
+    $scope.id = $routeParams.id;
+
+    schoolYearFactory.getSchoolYear($scope.id)
+        .success(function (data) {
+            $scope.title = data.title;
+        })
+        .error(function (error) {});
+
+    $scope.edit = function() {
+        schoolYearFactory.editSchoolYear($scope.id, $scope.title)
+        .success(function (data) {
+            $window.location.href = '#/browse';
+        })
+        .error(function (error) {});
+    }
+}]);

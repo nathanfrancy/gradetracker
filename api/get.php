@@ -26,6 +26,10 @@ if (isset($_GET['rq'])) {
         $schoolYears = getAllSchoolYears($auth_id);
         $response = $schoolYears;
     }
+    else if ($rq === "getSchoolYear") {
+        $schoolyear = getSchoolYear($id);
+        $response = $schoolyear;
+    }
     else if ($rq === "getAllAreas") {
         $areas = getAllAreas();
         $response = $areas;

@@ -16,21 +16,27 @@ $routeProvider
           controller: 'SchoolYearHomeCtrl',
           templateUrl: 'partials/schoolyear/_schoolyear_home.html'
         })
-    .when('/browse/schoolYear',
+    .when('/browse/schoolyear',
         {
           controller: 'SchoolYearHomeCtrl',
           templateUrl: 'partials/schoolyear/_schoolyear_home.html'
         })
-    .when('/browse/schoolYear/add',
+    .when('/browse/schoolyear/:id',
+        {
+          controller: 'SchoolYearHomeCtrl',
+          templateUrl: 'partials/schoolyear/_schoolyear_home.html'
+        })
+    .when('/schoolyear/add',
         {
           controller: 'SchoolYearAddCtrl',
           templateUrl: 'partials/schoolyear/_schoolyear_add.html'
         })
-    .when('/browse/schoolYear/:id',
+    .when('/schoolyear/edit/:id',
         {
-          controller: 'SchoolYearHomeCtrl',
-          templateUrl: 'partials/schoolyear/_schoolyear_home.html'
+          controller: 'SchoolYearEditCtrl',
+          templateUrl: 'partials/schoolyear/_schoolyear_edit.html'
         })
+    
     .otherwise({redirectTo: '/home'})
 });
 
