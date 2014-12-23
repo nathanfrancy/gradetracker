@@ -30,9 +30,9 @@ if (isset($_GET['rq'])) {
         $schoolyear = getSchoolYear($id);
         $response = $schoolyear;
     }
-    else if ($rq === "getAllAreas") {
-        $areas = getAllAreas();
-        $response = $areas;
+    else if ($rq === "getStudentsFromSchoolYear") {
+        $students = getStudentsFromSchoolYear($id);
+        $response = $students;
     }
     
     else {

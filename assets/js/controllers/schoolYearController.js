@@ -6,12 +6,24 @@ dashboardApp.controller('SchoolYearHomeCtrl', ['$scope', 'schoolYearFactory', fu
         .error(function (error) {});
 }]);
 
-dashboardApp.controller('SchoolYearSpecificHomeCtrl', ['$scope', '$routeParams', 'schoolYearFactory', function ($scope, $routeParams, schoolYearFactory) {
+dashboardApp.controller('SchoolYearSpecificHomeCtrl', ['$scope', '$routeParams', 'schoolYearFactory', 'studentFactory', function ($scope, $routeParams, schoolYearFactory, studentFactory) {
     $scope.id = $routeParams.id;
+    $scope.quarters = [
+        { title: "Quarter 1" },
+        { title: "Quarter 2" },
+        { title: "Quarter 3" },
+        { title: "Quarter 4" }
+    ];
 
     schoolYearFactory.getSchoolYear($scope.id)
         .success(function (data) {
             $scope.schoolyear = data;
+        })
+        .error(function (error) {});
+
+    studentFactory.getStudentsFromSchoolYear($scope.id)
+        .success(function (data) {
+            $scope.roster = data;
         })
         .error(function (error) {});
 }]);

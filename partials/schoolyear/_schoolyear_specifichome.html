@@ -2,9 +2,23 @@
 
 <div class="row">
 	<div class="col-sm-6">
-		<h3>Student Roster</h3>
+		<p>This is where the standards will go!</p>
 	</div>
 	<div class="col-sm-6">
-		<h3>Quarters</h3>
+		<h3>Quarters <a href="#/browse/schoolyear/{{schoolyear.id}}/addquarter"><i class="fa fa-fw fa-plus-circle"></i></a></h3>
+		<ul class="list-group">
+			<li ng-repeat="quarter in quarters" class="list-group-item">
+				{{ quarter.title }}
+			</li>
+		</ul>
+		<h3>Student Roster <a href="#/browse/schoolyear/{{schoolyear.id}}/addstudent"><i class="fa fa-fw fa-plus-circle"></i></a></h3>
+		<ul class="list-group">
+			<li ng-repeat="student in roster" class="list-group-item">
+				{{ student.lastname }}, {{ student.firstname }}
+			</li>
+		</ul>
 	</div>
 </div>
+
+<br><br><br>
+<a href="#/browse" class="btn btn-default btn-sm"><i class="fa fa-fw fa-chevron-circle-left"></i> Back</a>

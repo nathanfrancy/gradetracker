@@ -26,6 +26,7 @@ else {
 
     <!-- Custom CSS -->
     <link href="assets/vendor/css/sb-admin.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -38,13 +39,16 @@ else {
     <script src="assets/vendor/js/angular-route.min.js"></script>
     <script src="assets/vendor/js/angular-ui-bootstrap.min.js"></script>
     
-    <!-- Angular custom scripts -->
+    <!-- Angular custom app -->
     <script src="assets/js/dashboardApp.js"></script>
+
+    <!-- Angular custom services -->
     <script src="assets/js/services.js"></script>
     
     <!-- Angular custom controllers -->
     <script src="assets/js/controllers/dashboardController.js"></script>
     <script src="assets/js/controllers/schoolYearController.js"></script>
+    <script src="assets/js/controllers/studentController.js"></script>
     
 </head>
 
