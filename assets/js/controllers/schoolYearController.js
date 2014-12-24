@@ -6,7 +6,7 @@ dashboardApp.controller('SchoolYearHomeCtrl', ['$scope', 'schoolYearFactory', fu
         .error(function (error) {});
 }]);
 
-dashboardApp.controller('SchoolYearSpecificHomeCtrl', ['$scope', '$routeParams', 'schoolYearFactory', 'studentFactory', function ($scope, $routeParams, schoolYearFactory, studentFactory) {
+dashboardApp.controller('SchoolYearSpecificHomeCtrl', ['$scope', '$routeParams', 'schoolYearFactory', 'studentFactory', 'standardFactory', function ($scope, $routeParams, schoolYearFactory, studentFactory, standardFactory) {
     $scope.id = $routeParams.id;
     $scope.quarters = [
         { title: "Quarter 1" },
@@ -15,6 +15,14 @@ dashboardApp.controller('SchoolYearSpecificHomeCtrl', ['$scope', '$routeParams',
         { title: "Quarter 4" }
     ];
 
+    standardFactory.getStandardsFromSchoolYear($scope.id)
+        .success(function (data) {
+            $scope.standards = data;
+            $scope.orderByField = 'date_given';
+            $scope.reverseSort = true;
+        })
+        .error(function (error) {});
+    
     schoolYearFactory.getSchoolYear($scope.id)
         .success(function (data) {
             $scope.schoolyear = data;
@@ -29,6 +37,8 @@ dashboardApp.controller('SchoolYearSpecificHomeCtrl', ['$scope', '$routeParams',
 }]);
 
 dashboardApp.controller('SchoolYearAddCtrl', ['$scope', '$window', 'schoolYearFactory', function ($scope, $window, schoolYearFactory) {
+    $scope.schoolYearId = $routeParams.id;
+
     $scope.add = function() {
         schoolYearFactory.addSchoolYear($scope.title)
         .success(function (data) {
@@ -39,8 +49,6 @@ dashboardApp.controller('SchoolYearAddCtrl', ['$scope', '$window', 'schoolYearFa
 }]);
 
 dashboardApp.controller('SchoolYearEditCtrl', ['$scope', '$window', '$routeParams', 'schoolYearFactory', function ($scope, $window, $routeParams, schoolYearFactory) {
-    $scope.id = $routeParams.id;
-
     schoolYearFactory.getSchoolYear($scope.id)
         .success(function (data) {
             $scope.title = data.title;

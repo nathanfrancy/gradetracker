@@ -1,4 +1,5 @@
 dashboardApp.controller('StudentAddCtrl', ['$scope', '$window', '$routeParams', 'studentFactory', 'schoolYearFactory', function ($scope, $window, $routeParams, studentFactory, schoolYearFactory) {
+
     schoolYearFactory.getSchoolYear($routeParams.schoolYearId)
         .success(function (data) {
             $scope.schoolyear = data;

@@ -51,3 +51,31 @@ angular.module('dashboardApp').factory('studentFactory', ['$http', function($htt
 
     return dataFactory;
 }]);
+
+angular.module('dashboardApp').factory('standardFactory', ['$http', function($http) {
+    var dataFactory = {};
+
+    dataFactory.getStandardsFromSchoolYear = function (id) {
+        return $http.get('/api/get.php?rq=getStandardsFromSchoolYear&id=' + id);
+    };
+
+    /*
+    dataFactory.addStudent = function (student, schoolyear) {
+        return $http({ url: '/api/add.php', dataType: 'json', method: 'PUT',
+                    data: { rq: 'addStudent', firstname: student.firstname, lastname: student.lastname, schoolyear_id: schoolyear.id }, headers: { "Content-Type": "application/json"}});
+    };
+    dataFactory.getStudent = function (id) {
+        return $http.get('/api/get.php?rq=getStudent&id='+ id);
+    };
+    dataFactory.editStudent = function (student) {
+        return $http({ url: '/api/edit.php', dataType: 'json', method: 'PUT',
+                    data: { rq: 'editStudent', id: student.id, firstname: student.firstname, lastname: student.lastname }, headers: { "Content-Type": "application/json"}});
+    };
+    dataFactory.deleteCity = function (city) {
+        return $http({ url: '/api/delete/index.php', dataType: 'json', method: 'PUT',
+                    data: { rq: 'deleteCity', id: city.id }, headers: { "Content-Type": "application/json"}});
+    };
+    */
+
+    return dataFactory;
+}]);

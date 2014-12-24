@@ -14,5 +14,6 @@ function connect_db() {
 require_once('_account.php');
 require_once('_schoolyears.php');
 require_once('_students.php');
+require_once('_standards.php');
 
 ?>
