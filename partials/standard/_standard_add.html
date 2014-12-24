@@ -1,19 +1,32 @@
 <h1 class="page-header">Add Standard <small>for <span ng-bind="schoolyear.title"></span> school year</small></h1>
-<form role="form">
-  <div class="form-group">
-    <label>School Year</label>
-    <input ng-model="schoolyear.title" type="text" class="form-control" readonly>
-  </div>
-  <div class="form-group">
-    <label>Title</label>
-    <input ng-model="standard.title" type="text" class="form-control" placeholder="Enter title">
-  </div>
-  <div class="form-group">
-    <label>Date Given</label>
-    <input ng-model="standard.date_given" type="text" class="form-control" placeholder="Enter date given">
-  </div>
-  <button type="submit" class="btn btn-default" ng-click="add()"><i class="fa fa-fw fa-plus-circle"></i> Save</button>
-</form>
+<div class="row">
+    <div class="col-sm-6">
+        <form role="form">
+            <div class="form-group">
+                <label>School Year</label>
+                <input ng-model="schoolyear.title" type="text" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+                <label>Title</label>
+                <input ng-model="standard.title" type="text" class="form-control" placeholder="Enter title">
+            </div>
+            <div class="form-group">
+                <label>Date Given</label>
+                <div ng-controller="DatepickerDemoCtrl">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="standard.date_given" is-open="opened" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+                    </p>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-default" ng-click="add()"><i class="fa fa-fw fa-plus-circle"></i> Save</button>
+        </form>
 
-<br><br><br>
-<a href="#/browse" class="btn btn-default btn-sm"><i class="fa fa-fw fa-chevron-circle-left"></i> Back</a>
+        <br>
+        <br>
+        <br>
+        <a href="#/browse" class="btn btn-default btn-sm"><i class="fa fa-fw fa-chevron-circle-left"></i> Back</a>
+    </div>
+</div>

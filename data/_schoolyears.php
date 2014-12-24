@@ -5,7 +5,7 @@ function getAllSchoolYears($user_id) {
 	
 	// Connect and initialize sql and prepared statement template
 	$link = connect_db();
-	$sql = "SELECT * FROM `schoolyear` WHERE `user_id` = ? ORDER BY `title` desc";
+	$sql = "SELECT schoolyear.*, count(student.schoolyear_id) as number_of_students from schoolyear left join student on (schoolyear.id = student.schoolyear_id) where schoolyear.user_id = ? group by schoolyear.id";
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
     $stmt->bind_param('i', $user_id);
@@ -16,6 +16,7 @@ function getAllSchoolYears($user_id) {
     while ($row = $result->fetch_array(MYSQLI_BOTH)) {
         $schoolyear['id'] = $row['id'];
         $schoolyear['title'] = $row['title'];
+        $schoolyear['num_students'] = $row['number_of_students'];
 		array_push($schoolyears, $schoolyear);
 	}
 	

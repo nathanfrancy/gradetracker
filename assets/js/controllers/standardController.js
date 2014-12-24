@@ -1,5 +1,5 @@
 dashboardApp.controller('StandardAddCtrl', ['$scope', '$window', '$routeParams', 'standardFactory', 'studentFactory', 'schoolYearFactory', function ($scope, $window, $routeParams, standardFactory, studentFactory, schoolYearFactory) {
-
+    
     schoolYearFactory.getSchoolYear($routeParams.schoolYearId)
         .success(function (data) {
             $scope.schoolyear = data;
@@ -7,6 +7,8 @@ dashboardApp.controller('StandardAddCtrl', ['$scope', '$window', '$routeParams',
         .error(function (error) {});
 
     $scope.add = function() {
+        var temp = new Date($scope.standard.date_given);
+        $scope.standard.date_given =  temp.getFullYear() + "-" + (temp.getMonth()+1) + "-" + temp.getDate();
         standardFactory.addStandard($scope.standard, $scope.schoolyear)
         .success(function (data) {
             $window.location.href = '#/browse/schoolyear/' + $scope.schoolyear.id;
@@ -34,6 +36,9 @@ dashboardApp.controller('StandardEditCtrl', ['$scope', '$window', '$routeParams'
         .error(function (error) {});
 
     $scope.edit = function() {
+        var temp = new Date($scope.standard.date_given);
+        $scope.standard.date_given =  temp.getFullYear() + "-" + (temp.getMonth()+1) + "-" + temp.getDate();
+        
         standardFactory.editStandard($scope.standard)
         .success(function (data) {
             $window.location.href = '#/browse/schoolyear/' + $scope.schoolyear.id;

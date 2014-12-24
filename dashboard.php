@@ -51,6 +51,9 @@ else {
     <script src="assets/js/controllers/studentController.js"></script>
     <script src="assets/js/controllers/standardController.js"></script>
     
+    <!-- Angular custom plugins -->
+    <script src="assets/js/plugins/datepicker.js"></script>
+    
 </head>
 
 <body>

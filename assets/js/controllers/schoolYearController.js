@@ -36,7 +36,7 @@ dashboardApp.controller('SchoolYearSpecificHomeCtrl', ['$scope', '$routeParams',
         .error(function (error) {});
 }]);
 
-dashboardApp.controller('SchoolYearAddCtrl', ['$scope', '$window', 'schoolYearFactory', function ($scope, $window, schoolYearFactory) {
+dashboardApp.controller('SchoolYearAddCtrl', ['$scope', '$window', '$routeParams', 'schoolYearFactory', function ($scope, $window, $routeParams, schoolYearFactory) {
     $scope.schoolYearId = $routeParams.id;
 
     $scope.add = function() {
@@ -49,6 +49,8 @@ dashboardApp.controller('SchoolYearAddCtrl', ['$scope', '$window', 'schoolYearFa
 }]);
 
 dashboardApp.controller('SchoolYearEditCtrl', ['$scope', '$window', '$routeParams', 'schoolYearFactory', function ($scope, $window, $routeParams, schoolYearFactory) {
+    $scope.id = $routeParams.id;
+    
     schoolYearFactory.getSchoolYear($scope.id)
         .success(function (data) {
             $scope.title = data.title;

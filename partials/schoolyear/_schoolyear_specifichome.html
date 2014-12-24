@@ -1,7 +1,10 @@
-<h1 class="page-header">School Year <small ng-bind="schoolyear.title"></small></h1>
+<h1 class="page-header">
+    <a href="#/browse"><i class="fa fa-arrow-circle-left"></i></a>
+    <span ng-bind="schoolyear.title"></span> <small>School Year</small>
+</h1>
 
 <div class="row">
-	<div class="col-sm-6">
+	<div class="col-sm-8">
 		<h3>Standards <a href="#/browse/schoolyear/{{schoolyear.id}}/addstandard"><i class="fa fa-fw fa-plus-circle"></i></a></h3>
 		<table class="table table-hover">
 			<thead>
@@ -20,19 +23,22 @@
 							<span ng-show="reverseSort"><i class="fa fa-sort-desc"></i></span>
 						</span>
 					</th>
-					<th></th>
+					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="standard in standards | orderBy:orderByField:reverseSort">
 					<td>{{ standard.title }}</td>
 					<td>{{ standard.date_given | date:'MMM dd, yyyy' }}</td>
-					<td><a href="#/browse/schoolyear/{{schoolyear.id}}/editstandard/{{standard.id}}">Edit</a></td>
+					<td>
+                        <a href="#/browse/schoolyear/{{schoolyear.id}}/recordgrades/{{standard.id}}">Record Grades</a>&nbsp;
+                        <a href="#/browse/schoolyear/{{schoolyear.id}}/editstandard/{{standard.id}}">Edit</a>
+                    </td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	<div class="col-sm-6">
+	<div class="col-sm-4">
 		<div class="panel panel-primary">
 		 	<div class="panel-heading">
 		    	<h3 class="panel-title">Quarters</h3>
