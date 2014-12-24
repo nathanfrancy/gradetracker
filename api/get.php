@@ -42,6 +42,10 @@ if (isset($_GET['rq'])) {
         $standards = getStandardsFromSchoolYear($id);
         $response = $standards;
     }
+    else if ($rq === "getStandard") {
+        $standard = getStandard($id);
+        $response = $standard;
+    }
     
     else {
         $response['response'] = "fail";

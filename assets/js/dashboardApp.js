@@ -47,6 +47,19 @@ $routeProvider
           controller: 'StudentEditCtrl',
           templateUrl: 'partials/student/_student_edit.html'
         })
+
+    .when('/browse/schoolyear/:schoolYearId/addstandard',
+        {
+          controller: 'StandardAddCtrl',
+          templateUrl: 'partials/standard/_standard_add.html'
+        })
+    .when('/browse/schoolyear/:schoolYearId/editstandard/:standardId',
+        {
+          controller: 'StandardEditCtrl',
+          templateUrl: 'partials/standard/_standard_edit.html'
+        })
+
+    
     
     .otherwise({redirectTo: '/home'})
 });

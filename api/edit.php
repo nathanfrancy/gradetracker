@@ -12,6 +12,7 @@ $id = $data->id;
 $title = $data->title;
 $firstname = $data->firstname;
 $lastname = $data->lastname;
+$date_given = $data->date_given;
 
 
 if ($rq == "editSchoolYear") {
@@ -22,6 +23,11 @@ if ($rq == "editSchoolYear") {
 else if ($rq == "editStudent") {
 	$response = null;
 	$student = editStudent($id, $firstname, $lastname);
+	$response['message'] = "success";
+}
+else if ($rq == "editStandard") {
+	$response = null;
+	$standard = editStandard($id, $title, $date_given);
 	$response['message'] = "success";
 }
 else {

@@ -13,7 +13,7 @@ $title = $data->title;
 $firstname = $data->firstname;
 $lastname = $data->lastname;
 $schoolyear_id = $data->schoolyear_id;
-
+$date_given = $data->date_given;
 
 
 // Check if there is a request type defined in the request
@@ -34,6 +34,18 @@ if ($rq !== "") {
     else if ($rq === "addStudent") {
         if ($firstname !== null && $lastname !== null && $schoolyear_id !== null) {
             $newid = addStudent($firstname, $lastname, $schoolyear_id);
+            $response['response'] = "success";
+            $response['message'] = "Successfully added {$firstname} {$lastname}.";
+            $response['newid'] = $newid;
+        }
+        else {
+            $response['response'] = "fail";
+            $response['message'] = "Name is required.";
+        }
+    }
+    else if ($rq === "addStandard") {
+        if ($title !== null && $date_given !== null) {
+            $newid = addStandard($title, $date_given, $schoolyear_id);
             $response['response'] = "success";
             $response['message'] = "Successfully added {$firstname} {$lastname}.";
             $response['newid'] = $newid;

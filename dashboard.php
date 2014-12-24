@@ -49,6 +49,7 @@ else {
     <script src="assets/js/controllers/dashboardController.js"></script>
     <script src="assets/js/controllers/schoolYearController.js"></script>
     <script src="assets/js/controllers/studentController.js"></script>
+    <script src="assets/js/controllers/standardController.js"></script>
     
 </head>
 

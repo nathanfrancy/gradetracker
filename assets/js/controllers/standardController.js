@@ -1,4 +1,4 @@
-dashboardApp.controller('StudentAddCtrl', ['$scope', '$window', '$routeParams', 'studentFactory', 'schoolYearFactory', function ($scope, $window, $routeParams, studentFactory, schoolYearFactory) {
+dashboardApp.controller('StandardAddCtrl', ['$scope', '$window', '$routeParams', 'standardFactory', 'studentFactory', 'schoolYearFactory', function ($scope, $window, $routeParams, standardFactory, studentFactory, schoolYearFactory) {
 
     schoolYearFactory.getSchoolYear($routeParams.schoolYearId)
         .success(function (data) {
@@ -7,7 +7,7 @@ dashboardApp.controller('StudentAddCtrl', ['$scope', '$window', '$routeParams', 
         .error(function (error) {});
 
     $scope.add = function() {
-        studentFactory.addStudent($scope.student, $scope.schoolyear)
+        standardFactory.addStandard($scope.standard, $scope.schoolyear)
         .success(function (data) {
             $window.location.href = '#/browse/schoolyear/' + $scope.schoolyear.id;
         })
@@ -15,8 +15,8 @@ dashboardApp.controller('StudentAddCtrl', ['$scope', '$window', '$routeParams', 
     }
 }]);
 
-dashboardApp.controller('StudentEditCtrl', ['$scope', '$window', '$routeParams', 'studentFactory', 'schoolYearFactory', function ($scope, $window, $routeParams, studentFactory, schoolYearFactory) {
-    $scope.id = $routeParams.studentId;
+dashboardApp.controller('StandardEditCtrl', ['$scope', '$window', '$routeParams', 'standardFactory', 'studentFactory', 'schoolYearFactory', function ($scope, $window, $routeParams, standardFactory, studentFactory, schoolYearFactory) {
+    $scope.id = $routeParams.standardId;
     $scope.schoolYearId = $routeParams.schoolYearId;
 
     /* Get the student applicable to edit */
