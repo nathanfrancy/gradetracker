@@ -5,6 +5,10 @@
     <input ng-model="schoolyear.title" type="text" class="form-control" readonly>
   </div>
   <div class="form-group">
+    <label>Student ID</label>
+    <input ng-model="student.id" type="text" class="form-control" readonly>
+  </div>
+  <div class="form-group">
     <label>First Name</label>
     <input ng-model="student.firstname" type="text" class="form-control" placeholder="Enter first name">
   </div>
@@ -12,7 +16,7 @@
     <label>Last Name</label>
     <input ng-model="student.lastname" type="text" class="form-control" placeholder="Enter last name">
   </div>
-  <button type="submit" class="btn btn-default" ng-click="add()"><i class="fa fa-fw fa-plus-circle"></i> Save</button>
+  <button type="submit" class="btn btn-default" ng-click="edit()"><i class="fa fa-fw fa-plus-circle"></i> Save</button>
 </form>
 
 <br><br><br>

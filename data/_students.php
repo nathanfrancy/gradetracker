@@ -25,14 +25,12 @@ function getStudentsFromSchoolYear($schoolyear_id) {
 	return $students;
 }
 
-/*
-
-function getSchoolYear($id) {
-	$schoolyear = null;
+function getStudent($id) {
+	$student = null;
 	
 	// Connect and initialize sql and prepared statement template
 	$link = connect_db();
-	$sql = "SELECT * FROM `schoolyear` WHERE id = ? LIMIT 1";
+	$sql = "SELECT * FROM `student` WHERE id = ? LIMIT 1";
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
 	$stmt->bind_param('i', $id);
@@ -41,21 +39,22 @@ function getSchoolYear($id) {
 
 	// bind the result to $theBook for json encoding
 	while ($row = $result->fetch_array(MYSQLI_BOTH)) {
-		$schoolyear['id'] = $row['id'];
-		$schoolyear['title'] = $row['title'];
-		$schoolyear['user_id'] = $row['user_id'];
+		$student['id'] = $row['id'];
+		$student['firstname'] = $row['firstname'];
+		$student['lastname'] = $row['lastname'];
+		$student['schoolyear_id'] = $row['schoolyear_id'];
 	}
 	
 	mysqli_stmt_close($stmt);
-	return $schoolyear;
+	return $student;
 }
 
-function addSchoolYear($title) {
+function addStudent($firstname, $lastname, $schoolyear_id) {
     $link = connect_db();
-	$sql = "INSERT INTO  `schoolyear` (`title`, `user_id`) VALUES (?, ?)";
+	$sql = "INSERT INTO  `student` (`firstname`, `lastname`, `schoolyear_id`) VALUES (?, ?, ?)";
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
-	$stmt->bind_param('si', $link->real_escape_string($title), $_SESSION['auth_id']);
+	$stmt->bind_param('ssi', $link->real_escape_string($firstname), $link->real_escape_string($lastname), $schoolyear_id);
 	$stmt->execute();
 	$id = $link->insert_id;
 	mysqli_stmt_close($stmt);
@@ -64,24 +63,23 @@ function addSchoolYear($title) {
 	return $id;
 }
 
-function editSchoolYear($id, $title) {
+function editStudent($id, $firstname, $lastname) {
 	$link = connect_db();
-	$sql = "UPDATE  `schoolyear` SET `title`=? WHERE id = ?";
+	$sql = "UPDATE  `student` SET `firstname`=?, `lastname`=? WHERE id = ?";
 	
 	// Create prepared statement and bind parameters
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
-	$stmt->bind_param('si', $link->real_escape_string($title), $id);
+	$stmt->bind_param('ssi', $link->real_escape_string($firstname), $link->real_escape_string($lastname), $id);
 	
     // Execute the query, get the last inserted id
     $stmt->execute();
 	$rows = $link->affected_rows;
 	mysqli_stmt_close($stmt);
 	$link->close();
-    $schoolYear = getSchoolYear($id);
+    $student = getStudent($id);
 	
-	return $schoolYear;
+	return $student;
 }
-*/
 
 ?>

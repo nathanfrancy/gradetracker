@@ -34,6 +34,10 @@ if (isset($_GET['rq'])) {
         $students = getStudentsFromSchoolYear($id);
         $response = $students;
     }
+    else if ($rq === "getStudent") {
+        $student = getStudent($id);
+        $response = $student;
+    }
     
     else {
         $response['response'] = "fail";

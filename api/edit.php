@@ -10,11 +10,18 @@ $response = null;
 $rq = $data->rq;
 $id = $data->id;
 $title = $data->title;
+$firstname = $data->firstname;
+$lastname = $data->lastname;
 
 
 if ($rq == "editSchoolYear") {
 	$response = null;
 	$schoolyear = editSchoolYear($id, $title);
+	$response['message'] = "success";
+}
+else if ($rq == "editStudent") {
+	$response = null;
+	$student = editStudent($id, $firstname, $lastname);
 	$response['message'] = "success";
 }
 else {

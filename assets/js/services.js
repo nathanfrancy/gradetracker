@@ -31,18 +31,16 @@ angular.module('dashboardApp').factory('studentFactory', ['$http', function($htt
     dataFactory.getStudentsFromSchoolYear = function (id) {
         return $http.get('/api/get.php?rq=getStudentsFromSchoolYear&id=' + id);
     };
-
-    /*
-    dataFactory.addSchoolYear = function (title) {
+    dataFactory.addStudent = function (student, schoolyear) {
         return $http({ url: '/api/add.php', dataType: 'json', method: 'PUT',
-                    data: { rq: 'addSchoolYear', title: title }, headers: { "Content-Type": "application/json"}});
+                    data: { rq: 'addStudent', firstname: student.firstname, lastname: student.lastname, schoolyear_id: schoolyear.id }, headers: { "Content-Type": "application/json"}});
     };
-    dataFactory.getSchoolYear = function (id) {
-        return $http.get('/api/get.php?rq=getSchoolYear&id='+ id);
+    dataFactory.getStudent = function (id) {
+        return $http.get('/api/get.php?rq=getStudent&id='+ id);
     };
-    dataFactory.editSchoolYear = function (id, title) {
+    dataFactory.editStudent = function (student) {
         return $http({ url: '/api/edit.php', dataType: 'json', method: 'PUT',
-                    data: { rq: 'editSchoolYear', id: id, title: title }, headers: { "Content-Type": "application/json"}});
+                    data: { rq: 'editStudent', id: student.id, firstname: student.firstname, lastname: student.lastname }, headers: { "Content-Type": "application/json"}});
     };
     /*
     dataFactory.deleteCity = function (city) {

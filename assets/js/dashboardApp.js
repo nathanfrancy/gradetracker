@@ -42,6 +42,11 @@ $routeProvider
           controller: 'StudentAddCtrl',
           templateUrl: 'partials/student/_student_add.html'
         })
+    .when('/browse/schoolyear/:schoolYearId/editstudent/:studentId',
+        {
+          controller: 'StudentEditCtrl',
+          templateUrl: 'partials/student/_student_edit.html'
+        })
     
     .otherwise({redirectTo: '/home'})
 });

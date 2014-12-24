@@ -14,7 +14,7 @@
 		<h3>Student Roster <a href="#/browse/schoolyear/{{schoolyear.id}}/addstudent"><i class="fa fa-fw fa-plus-circle"></i></a></h3>
 		<ul class="list-group">
 			<li ng-repeat="student in roster" class="list-group-item">
-				{{ student.lastname }}, {{ student.firstname }}
+				{{ student.lastname }}, {{ student.firstname }} <a href="#/browse/schoolyear/{{schoolyear.id}}/editstudent/{{student.id}}">Edit</a>
 			</li>
 		</ul>
 	</div>
