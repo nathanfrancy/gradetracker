@@ -47,27 +47,31 @@ dashboardApp.controller('StandardEditCtrl', ['$scope', '$window', '$routeParams'
     }
 }]);
 
-dashboardApp.controller('StandardRecordGradesCtrl', ['$scope', '$window', '$routeParams', 'standardFactory', 'studentFactory', 'schoolYearFactory', function ($scope, $window, $routeParams, standardFactory, studentFactory, schoolYearFactory) {
+dashboardApp.controller('StandardRecordGradesCtrl', ['$scope', '$window', '$routeParams', 'standardFactory', 'studentFactory', 'schoolYearFactory', 'gradeFactory', function ($scope, $window, $routeParams, standardFactory, studentFactory, schoolYearFactory, gradeFactory) {
     $scope.id = $routeParams.standardId;
     $scope.schoolYearId = $routeParams.schoolYearId;
 
     /* Get the student applicable to edit */
-    standardFactory.getStandard($scope.id)
-        .success(function (data) {
-            $scope.standard = data;
-        })
-        .error(function (error) {});
+   
 
     /* Get the school year to let the user know the student is going in the right class */
     schoolYearFactory.getSchoolYear($scope.schoolYearId)
         .success(function (data) {
             $scope.schoolyear = data;
-        
-            studentFactory.getStudentsFromSchoolYear($scope.schoolyear.id)
-            .success(function (data) {
-                $scope.roster = data;
-            })
-            .error(function (error) {});
+
+            /* Get the particular standard for this page */
+             standardFactory.getStandard($scope.id)
+                .success(function (data) {
+                    $scope.standard = data;
+
+                    /* Get the students that will have taken this test (from this school year) */
+                    gradeFactory.getStudentsWithStandardGrades($scope.schoolyear.id, $scope.standard.id)
+                        .success(function (data) {
+                            $scope.roster = data;
+                        })
+                        .error(function (error) {});
+                })
+                .error(function (error) {});
         })
         .error(function (error) {});
     
@@ -79,8 +83,8 @@ dashboardApp.controller('StandardRecordGradesCtrl', ['$scope', '$window', '$rout
         .error(function (error) {});
     }
     
-    $scope.saveGrades = function() {
-        standardFactory.recordGrades($scope.roster)
+    $scope.recordStandardGrades = function() {
+        gradeFactory.recordStandardGrades($scope.roster, $scope.standard)
             .success(function (data) {
                 console.log(data);
             })

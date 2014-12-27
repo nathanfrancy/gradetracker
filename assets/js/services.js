@@ -69,16 +69,26 @@ angular.module('dashboardApp').factory('standardFactory', ['$http', function($ht
         return $http({ url: '/api/edit.php', dataType: 'json', method: 'PUT',
                     data: { rq: 'editStandard', id: standard.id, title: standard.title, date_given: standard.date_given }, headers: { "Content-Type": "application/json"}});
     };
-    dataFactory.recordGrades = function (students) {
-        return $http({ url: '/controllers/testGrades.php', dataType: 'json', method: 'PUT',
-                    data: { students: students }, headers: { "Content-Type": "application/json"}});
-    };
     /*
     dataFactory.deleteCity = function (city) {
         return $http({ url: '/api/delete/index.php', dataType: 'json', method: 'PUT',
                     data: { rq: 'deleteCity', id: city.id }, headers: { "Content-Type": "application/json"}});
     };
     */
+
+    return dataFactory;
+}]);
+
+angular.module('dashboardApp').factory('gradeFactory', ['$http', function($http) {
+    var dataFactory = {};
+
+    dataFactory.getStudentsWithStandardGrades = function (schoolyear_id, standard_id) {
+        return $http.get('/api/get.php?rq=getStudentsWithStandardGrades&schoolyear_id=' + schoolyear_id + '&standard_id=' + standard_id);
+    };
+    dataFactory.recordStandardGrades = function (students, standard) {
+        return $http({ url: '/api/add.php', dataType: 'json', method: 'PUT',
+                    data: { rq: "recordStandardGrades", students: students, standard: standard }, headers: { "Content-Type": "application/json"}});
+    };
 
     return dataFactory;
 }]);

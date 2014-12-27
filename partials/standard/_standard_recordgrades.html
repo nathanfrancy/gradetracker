@@ -17,11 +17,11 @@
             <tbody>
                 <tr ng-repeat="student in roster">
                     <td>{{student.firstname}} {{student.lastname}}</td>
-                    <td><input type="text" class="form-control" placeholder="Enter m, p, or nm" ng-model="student.grade"></td>
+                    <td><input type="text" class="form-control" placeholder="Enter m, p, or nm" ng-model="student.rating"></td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
 
-<button class="btn btn-default" ng-click="saveGrades()">Save Grades</button>
+<button class="btn btn-default" ng-click="recordStandardGrades()">Save Grades</button>

@@ -14,11 +14,16 @@ $firstname = $data->firstname;
 $lastname = $data->lastname;
 $schoolyear_id = $data->schoolyear_id;
 $date_given = $data->date_given;
-
+$students = $data->students;
+$standard = $data->standard;
 
 // Check if there is a request type defined in the request
 if ($rq !== "") {
     
+
+    /**
+     * insert a new school year into the database
+     */
     if ($rq === "addSchoolYear") {
         if ($title !== null) {
             $newid = addSchoolYear($title);
@@ -31,6 +36,8 @@ if ($rq !== "") {
             $response['message'] = "Name is required.";
         }
     }
+
+
     else if ($rq === "addStudent") {
         if ($firstname !== null && $lastname !== null && $schoolyear_id !== null) {
             $newid = addStudent($firstname, $lastname, $schoolyear_id);
@@ -43,6 +50,8 @@ if ($rq !== "") {
             $response['message'] = "Name is required.";
         }
     }
+
+
     else if ($rq === "addStandard") {
         if ($title !== null && $date_given !== null) {
             $newid = addStandard($title, $date_given, $schoolyear_id);
@@ -55,6 +64,25 @@ if ($rq !== "") {
             $response['message'] = "Name is required.";
         }
     }
+
+
+    else if ($rq === "recordStandardGrades") {
+        
+        if ($students !== null) {
+
+            foreach ($students as $student) {
+                recordIndividualStandardGrade($student->id, $standard->id, $student->rating);
+            }
+
+        }
+
+        else {
+            $response['response'] = "fail";
+            $response['message'] = "Name is required.";
+        }
+    }
+
+
     else {
         $response['response'] = "fail";
         $response['message'] = "Request type not valid.";
