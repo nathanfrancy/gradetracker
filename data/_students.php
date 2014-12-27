@@ -5,7 +5,7 @@ function getStudentsFromSchoolYear($schoolyear_id) {
 	
 	// Connect and initialize sql and prepared statement template
 	$link = connect_db();
-	$sql = "SELECT * FROM `student` WHERE `schoolyear_id` = ? AND `status` = 'enabled'";
+	$sql = "SELECT * FROM `student` WHERE `schoolyear_id` = ?";
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
     $stmt->bind_param('i', $schoolyear_id);
@@ -18,6 +18,7 @@ function getStudentsFromSchoolYear($schoolyear_id) {
         $student['firstname'] = $row['firstname'];
         $student['lastname'] = $row['lastname'];
         $student['schoolyear_id'] = $row['schoolyear_id'];
+        $student['status'] = $row['status'];
 		array_push($students, $student);
 	}
 	

@@ -65,9 +65,15 @@
 		    	<table class="table table-hover">
 		    		<caption><a href="#/browse/schoolyear/{{schoolyear.id}}/addstudent"><i class="fa fa-fw fa-plus-circle"></i> Add</a></caption>
 		    		<tbody>
+                        
+                        
 						<tr ng-repeat="student in roster">
-							<td>
-								{{ student.lastname }}, {{ student.firstname }}&nbsp;
+							<td ng-if="student.status == 'enabled'">
+								<i class="fa fa-user" style="color: HSLA(208, 56%, 46%, 1);"></i> {{ student.lastname }}, {{ student.firstname }}&nbsp;
+								<a href="#/browse/schoolyear/{{schoolyear.id}}/editstudent/{{student.id}}">Edit</a>
+							</td>
+                            <td ng-if="student.status == 'disabled'">
+								<i class="fa fa-user" style="color: hsla(256, 0%, 58%, 1);"></i> {{ student.lastname }}, {{ student.firstname }}&nbsp;
 								<a href="#/browse/schoolyear/{{schoolyear.id}}/editstudent/{{student.id}}">Edit</a>
 							</td>
 						</tr>
