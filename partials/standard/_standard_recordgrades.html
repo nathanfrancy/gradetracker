@@ -1,0 +1,27 @@
+<h1 class="page-header">Record Grades 
+    <small>{{standard.title}} ({{schoolyear.title}})</small>
+    <a href="#/schoolyear/edit/{{schoolyear.id}}" class="pull-right">
+        <i class="fa fa-edit"></i>
+    </a>
+</h1>
+
+<div class="row">
+    <div class="col-sm-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="student in roster">
+                    <td>{{student.firstname}} {{student.lastname}}</td>
+                    <td><input type="text" class="form-control" placeholder="Enter m, p, or nm" ng-model="student.grade"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<button class="btn btn-default" ng-click="saveGrades()">Save Grades</button>

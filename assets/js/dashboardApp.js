@@ -58,6 +58,11 @@ $routeProvider
           controller: 'StandardEditCtrl',
           templateUrl: 'partials/standard/_standard_edit.html'
         })
+    .when('/browse/schoolyear/:schoolYearId/recordgrades/:standardId',
+        {
+          controller: 'StandardRecordGradesCtrl',
+          templateUrl: 'partials/standard/_standard_recordgrades.html'
+        })
 
     
     

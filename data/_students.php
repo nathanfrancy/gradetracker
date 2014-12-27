@@ -5,7 +5,7 @@ function getStudentsFromSchoolYear($schoolyear_id) {
 	
 	// Connect and initialize sql and prepared statement template
 	$link = connect_db();
-	$sql = "SELECT * FROM `student` WHERE `schoolyear_id` = ?";
+	$sql = "SELECT * FROM `student` WHERE `schoolyear_id` = ? AND `status` = 'enabled'";
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
     $stmt->bind_param('i', $schoolyear_id);
@@ -43,18 +43,19 @@ function getStudent($id) {
 		$student['firstname'] = $row['firstname'];
 		$student['lastname'] = $row['lastname'];
 		$student['schoolyear_id'] = $row['schoolyear_id'];
+        $student['status'] = $row['status'];
 	}
 	
 	mysqli_stmt_close($stmt);
 	return $student;
 }
 
-function addStudent($firstname, $lastname, $schoolyear_id) {
+function addStudent($firstname, $lastname, $schoolyear_id, $status) {
     $link = connect_db();
-	$sql = "INSERT INTO  `student` (`firstname`, `lastname`, `schoolyear_id`) VALUES (?, ?, ?)";
+	$sql = "INSERT INTO  `student` (`firstname`, `lastname`, `schoolyear_id`, `status`) VALUES (?, ?, ?, ?)";
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
-	$stmt->bind_param('ssi', $link->real_escape_string($firstname), $link->real_escape_string($lastname), $schoolyear_id);
+	$stmt->bind_param('ssis', $link->real_escape_string($firstname), $link->real_escape_string($lastname), $schoolyear_id, $link->rel_escape_string($status));
 	$stmt->execute();
 	$id = $link->insert_id;
 	mysqli_stmt_close($stmt);
@@ -63,14 +64,14 @@ function addStudent($firstname, $lastname, $schoolyear_id) {
 	return $id;
 }
 
-function editStudent($id, $firstname, $lastname) {
+function editStudent($id, $firstname, $lastname, $status) {
 	$link = connect_db();
-	$sql = "UPDATE  `student` SET `firstname`=?, `lastname`=? WHERE id = ?";
+	$sql = "UPDATE  `student` SET `firstname`=?, `lastname`=?, `status`=? WHERE id = ?";
 	
 	// Create prepared statement and bind parameters
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
-	$stmt->bind_param('ssi', $link->real_escape_string($firstname), $link->real_escape_string($lastname), $id);
+	$stmt->bind_param('sssi', $link->real_escape_string($firstname), $link->real_escape_string($lastname), $link->real_escape_string($status), $id);
 	
     // Execute the query, get the last inserted id
     $stmt->execute();

@@ -3,6 +3,7 @@ dashboardApp.controller('DatepickerDemoCtrl', function ($scope) {
         $scope.dt = new Date();
     };
     $scope.today();
+    $scope.minDate = null;
 
     $scope.clear = function () {
         $scope.dt = null;

@@ -40,7 +40,7 @@ angular.module('dashboardApp').factory('studentFactory', ['$http', function($htt
     };
     dataFactory.editStudent = function (student) {
         return $http({ url: '/api/edit.php', dataType: 'json', method: 'PUT',
-                    data: { rq: 'editStudent', id: student.id, firstname: student.firstname, lastname: student.lastname }, headers: { "Content-Type": "application/json"}});
+                    data: { rq: 'editStudent', id: student.id, firstname: student.firstname, lastname: student.lastname, status: student.status}, headers: { "Content-Type": "application/json"}});
     };
     /*
     dataFactory.deleteCity = function (city) {
@@ -68,6 +68,10 @@ angular.module('dashboardApp').factory('standardFactory', ['$http', function($ht
     dataFactory.editStandard = function (standard) {
         return $http({ url: '/api/edit.php', dataType: 'json', method: 'PUT',
                     data: { rq: 'editStandard', id: standard.id, title: standard.title, date_given: standard.date_given }, headers: { "Content-Type": "application/json"}});
+    };
+    dataFactory.recordGrades = function (students) {
+        return $http({ url: '/controllers/testGrades.php', dataType: 'json', method: 'PUT',
+                    data: { students: students }, headers: { "Content-Type": "application/json"}});
     };
     /*
     dataFactory.deleteCity = function (city) {

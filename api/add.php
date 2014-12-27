@@ -47,7 +47,7 @@ if ($rq !== "") {
         if ($title !== null && $date_given !== null) {
             $newid = addStandard($title, $date_given, $schoolyear_id);
             $response['response'] = "success";
-            $response['message'] = "Successfully added {$firstname} {$lastname}.";
+            $response['message'] = "Successfully added {$title}.";
             $response['newid'] = $newid;
         }
         else {
