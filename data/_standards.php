@@ -5,7 +5,7 @@ function getStandardsFromSchoolYear($schoolyear_id) {
 	
 	// Connect and initialize sql and prepared statement template
 	$link = connect_db();
-	$sql = "SELECT * FROM `standard` WHERE `schoolyear_id` = ?";
+	$sql = "SELECT * FROM `standard` WHERE `schoolyear_id` = ? ORDER BY date_given";
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
     $stmt->bind_param('i', $schoolyear_id);

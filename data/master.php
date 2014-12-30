@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('America/Chicago');
+
 if(!isset($_SESSION)){
     session_start();
 }
