@@ -25,7 +25,7 @@ else {
     <link href="assets/vendor/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="assets/vendor/css/sb-admin.css" rel="stylesheet">
+    <!--<link href="assets/vendor/css/sb-admin.css" rel="stylesheet">-->
     <link href="assets/css/style.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
@@ -57,11 +57,11 @@ else {
 </head>
 
 <body>
-    <div id="wrapper">
-
-        <!-- Navbar -->
-        <?php require('partials/navbar.php'); ?>
-
+    
+    <!-- Navbar -->
+    <?php require('partials/navbar.php'); ?>
+    
+    <div id="wrapper" class="container-fluid">
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div ng-view></div>

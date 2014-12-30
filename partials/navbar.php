@@ -1,38 +1,39 @@
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="dashboard.php">Grade Tracker</a>
-    </div>
-    <ul class="nav navbar-right top-nav">
-        <li ng-controller="DropdownCtrl" class="dropdown" dropdown is-open="status.isopen">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" dropdown-toggle ng-disabled="disabled">
-                <i class="fa fa-user"></i>&nbsp;
-                <?php echo $user[ 'username']; ?>&nbsp;
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                </li>
-                <li><a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                </li>
-                <li><a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-                </li>
-                <li class="divider"></li>
-                <li><a href="logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+<nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation" ng-controller="NavBarController">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-click="navbarCollapsed = !navbarCollapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/home">Gradetracker</a>
+        </div>
+        <div class="collapse navbar-collapse" collapse="navbarCollapsed">
+            <ul class="nav navbar-nav">
+                <li ng-class="{ active: isActive('/browse')}"><a href="#/browse">Browse</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="navbar-form">
+                        <div class="btn-group" dropdown>
+                            <button href="#/home" type="button" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;
+                                <?php echo $user[ 'username']; ?>
+                            </button>
+                            <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
+                                <span class="caret"></span>
+                                <span class="sr-only">Split button!</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#/profile">Profile</a></li></li>
+                                <li class="divider"></li>
+                                <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                            </ul>
+                        </div>
+                    </form>
                 </li>
             </ul>
-        </li>
-    </ul>
-    <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <ul class="nav navbar-nav side-nav" ng-controller="HeaderController">
-            <li ng-class="{ active: isActive('/home')}"><a href="#/home"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
-            <li ng-class="{ active: isActive('/browse')}"><a href="#/browse"><i class="fa fa-fw fa-folder-o"></i> Browse</a></li>
-        </ul>
+        </div>
     </div>
 </nav>
-

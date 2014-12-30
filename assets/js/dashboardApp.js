@@ -63,28 +63,28 @@ $routeProvider
           controller: 'StandardRecordGradesCtrl',
           templateUrl: 'partials/standard/_standard_recordgrades.html'
         })
-
-    
     
     .otherwise({redirectTo: '/home'})
 });
 
-function HeaderController($scope, $location) { 
+dashboardApp.controller('NavBarController', function ($scope, $log, $location) {
+    $scope.navbarCollapsed = true;
+    
     $scope.isActive = function (viewLocation) { 
         return $location.path().indexOf(viewLocation) == 0;
     };
-}
+    
+    $scope.status = {
+        isopen: false
+    };
 
-/** 
-  * Dropdown controller for the right-side menu */
-dashboardApp.controller('DropdownCtrl', function ($scope, $log) {
-  $scope.status = {
-    isopen: false
-  };
+    $scope.toggled = function(open) {
+        $log.log('Dropdown is now: ', open);
+    };
 
-  $scope.toggleDropdown = function($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
-    $scope.status.isopen = !$scope.status.isopen;
-  };
+    $scope.toggleDropdown = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        $scope.status.isopen = !$scope.status.isopen;
+    };
 });

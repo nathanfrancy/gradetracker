@@ -1,4 +1,4 @@
 html, body, #wrapper, #page-wrapper {
-	min-height: 800px !important;
-	
+	width: 100% !important;
+    max-width: 100% !important;
 }
