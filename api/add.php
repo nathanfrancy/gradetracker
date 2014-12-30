@@ -10,6 +10,7 @@ $response = null;
 $rq = $data->rq;
 $id = $data->id;
 $title = $data->title;
+$description = $data->description;
 $firstname = $data->firstname;
 $lastname = $data->lastname;
 $schoolyear_id = $data->schoolyear_id;
@@ -54,7 +55,7 @@ if ($rq !== "") {
 
     else if ($rq === "addStandard") {
         if ($title !== null && $date_given !== null) {
-            $newid = addStandard($title, $date_given, $schoolyear_id);
+            $newid = addStandard($title, $description, $date_given, $schoolyear_id);
             $response['response'] = "success";
             $response['message'] = "Successfully added {$title}.";
             $response['newid'] = $newid;

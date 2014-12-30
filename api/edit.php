@@ -10,6 +10,7 @@ $response = null;
 $rq = $data->rq;
 $id = $data->id;
 $title = $data->title;
+$description = $data->description;
 $firstname = $data->firstname;
 $lastname = $data->lastname;
 $date_given = $data->date_given;
@@ -28,7 +29,7 @@ else if ($rq == "editStudent") {
 }
 else if ($rq == "editStandard") {
 	$response = null;
-	$standard = editStandard($id, $title, $date_given);
+	$standard = editStandard($id, $title, $description, $date_given);
 	$response['message'] = "success";
 }
 else {

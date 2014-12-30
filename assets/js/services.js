@@ -60,14 +60,14 @@ angular.module('dashboardApp').factory('standardFactory', ['$http', function($ht
     };
     dataFactory.addStandard = function (standard, schoolyear) {
         return $http({ url: '/api/add.php', dataType: 'json', method: 'PUT',
-                    data: { rq: 'addStandard', title: standard.title, date_given: standard.date_given, schoolyear_id: schoolyear.id }, headers: { "Content-Type": "application/json"}});
+                    data: { rq: 'addStandard', title: standard.title, description: standard.description, date_given: standard.date_given, schoolyear_id: schoolyear.id }, headers: { "Content-Type": "application/json"}});
     };
     dataFactory.getStandard = function (id) {
         return $http.get('/api/get.php?rq=getStandard&id='+ id);
     };
     dataFactory.editStandard = function (standard) {
         return $http({ url: '/api/edit.php', dataType: 'json', method: 'PUT',
-                    data: { rq: 'editStandard', id: standard.id, title: standard.title, date_given: standard.date_given }, headers: { "Content-Type": "application/json"}});
+                    data: { rq: 'editStandard', id: standard.id, title: standard.title, description: standard.description, date_given: standard.date_given }, headers: { "Content-Type": "application/json"}});
     };
     /*
     dataFactory.deleteCity = function (city) {

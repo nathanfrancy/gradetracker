@@ -1,15 +1,15 @@
 <?php
 
-
-
 function recordIndividualStandardGrade($student_id, $standard_id, $rating) {
+    $d = date("m-d-Y");
+    
 	$link = connect_db();
-	$sql = "INSERT INTO grade (`student_id`, `standard_id`,`rating`) VALUES (?,?,?) ON DUPLICATE KEY UPDATE rating=?";
+	$sql = "INSERT INTO grade (`student_id`, `standard_id`,`rating`, `date_updated`) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE rating=?, date_updated=?";
 	
 	// Create prepared statement and bind parameters
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
-	$stmt->bind_param('iiss', $student_id, $standard_id, $rating, $rating);
+	$stmt->bind_param('iissss', $student_id, $standard_id, $rating, $d, $rating, $d);
 	
     // Execute the query, get the last inserted id
     $stmt->execute();
@@ -25,10 +25,15 @@ function getStudentsWithStandardGrades($schoolyear_id, $standard_id) {
 	
 	// Connect and initialize sql and prepared statement template
 	$link = connect_db();
-	$sql = "SELECT *, `student`.`id` as `studentid` FROM `student` LEFT JOIN `grade` ON `grade`.`student_id` = `student`.`id` WHERE `student`.`schoolyear_id` = ?";
+	$sql = "
+SELECT s.*, g.*, s.`id` as `studentid` 
+FROM `student` s 
+LEFT JOIN `grade` g ON g.`student_id` = s.`id` AND g.standard_id = ?
+LEFT JOIN `standard` st ON g.standard_id = st.id
+WHERE s.`schoolyear_id` = ? AND s.`status` = 'enabled'";
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
-    $stmt->bind_param('i', $schoolyear_id);
+    $stmt->bind_param('ii', $standard_id, $schoolyear_id);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	
@@ -40,6 +45,7 @@ function getStudentsWithStandardGrades($schoolyear_id, $standard_id) {
         $student['schoolyear_id'] = $row['schoolyear_id'];
         $student['status'] = $row['status'];
         $student['rating'] = $row['rating'];
+        $student['date_updated'] = $row['date_updated'];
 		array_push($students, $student);
 	}
 	

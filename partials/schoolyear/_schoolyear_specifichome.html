@@ -31,7 +31,10 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="standard in standards | orderBy:orderByField:reverseSort">
-					<td>{{ standard.title }}</td>
+					<td>
+                        {{ standard.title }}<br>
+                        <small><em>{{ standard.description }}</em></small>
+                    </td>
 					<td>{{ standard.date_given | date:'MMM dd, yyyy' }}</td>
 					<td>
                         <a href="#/browse/schoolyear/{{schoolyear.id}}/recordgrades/{{standard.id}}">Record Grades</a>&nbsp;

@@ -16,6 +16,7 @@ function getStandardsFromSchoolYear($schoolyear_id) {
     while ($row = $result->fetch_array(MYSQLI_BOTH)) {
         $standard['id'] = $row['id'];
         $standard['title'] = $row['title'];
+        $standard['description'] = $row['description'];
         $standard['date_given'] = $row['date_given'];
         $standard['schoolyear_id'] = $row['schoolyear_id'];
 		array_push($standards, $standard);
@@ -41,6 +42,7 @@ function getStandard($id) {
 	while ($row = $result->fetch_array(MYSQLI_BOTH)) {
 		$standard['id'] = $row['id'];
 		$standard['title'] = $row['title'];
+        $standard['description'] = $row['description'];
 		$standard['date_given'] = $row['date_given'];
 		$standard['schoolyear_id'] = $row['schoolyear_id'];
 	}
@@ -49,12 +51,12 @@ function getStandard($id) {
 	return $standard;
 }
 
-function addStandard($title, $date_given, $schoolyear_id) {
+function addStandard($title, $description, $date_given, $schoolyear_id) {
     $link = connect_db();
-	$sql = "INSERT INTO  `standard` (`title`, `date_given`, `schoolyear_id`) VALUES (?, ?, ?)";
+	$sql = "INSERT INTO  `standard` (`title`, `description`, `date_given`, `schoolyear_id`) VALUES (?, ?, ?)";
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
-	$stmt->bind_param('ssi', $link->real_escape_string($title), $link->real_escape_string($date_given), $schoolyear_id);
+	$stmt->bind_param('sssi', $link->real_escape_string($title), $link->real_escape_string($description), $link->real_escape_string($date_given), $schoolyear_id);
 	$stmt->execute();
 	$id = $link->insert_id;
 	mysqli_stmt_close($stmt);
@@ -63,14 +65,14 @@ function addStandard($title, $date_given, $schoolyear_id) {
 	return $id;
 }
 
-function editStandard($id, $title, $date_given) {
+function editStandard($id, $title, $description, $date_given) {
 	$link = connect_db();
-	$sql = "UPDATE  `standard` SET `title`=?, `date_given`=? WHERE id = ?";
+	$sql = "UPDATE  `standard` SET `title`=?, `date_given`=?, `description`=? WHERE id = ?";
 	
 	// Create prepared statement and bind parameters
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
-	$stmt->bind_param('ssi', $link->real_escape_string($title), $link->real_escape_string($date_given), $id);
+	$stmt->bind_param('sssi', $link->real_escape_string($title), $link->real_escape_string($date_given), $link->real_escape_string($description), $id);
 	
     // Execute the query, get the last inserted id
     $stmt->execute();

@@ -86,7 +86,7 @@ dashboardApp.controller('StandardRecordGradesCtrl', ['$scope', '$window', '$rout
     $scope.recordStandardGrades = function() {
         gradeFactory.recordStandardGrades($scope.roster, $scope.standard)
             .success(function (data) {
-                console.log(data);
+                $window.location.href = '#/browse/schoolyear/' + $scope.schoolyear.id;
             })
             .error(function (error) {});
     }
