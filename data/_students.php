@@ -56,7 +56,7 @@ function addStudent($firstname, $lastname, $schoolyear_id, $status) {
 	$sql = "INSERT INTO  `student` (`firstname`, `lastname`, `schoolyear_id`, `status`) VALUES (?, ?, ?, ?)";
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
-	$stmt->bind_param('ssis', $link->real_escape_string($firstname), $link->real_escape_string($lastname), $schoolyear_id, $link->rel_escape_string($status));
+	$stmt->bind_param('ssis', $link->real_escape_string($firstname), $link->real_escape_string($lastname), $schoolyear_id, $status);
 	$stmt->execute();
 	$id = $link->insert_id;
 	mysqli_stmt_close($stmt);

@@ -41,7 +41,7 @@ if ($rq !== "") {
 
     else if ($rq === "addStudent") {
         if ($firstname !== null && $lastname !== null && $schoolyear_id !== null) {
-            $newid = addStudent($firstname, $lastname, $schoolyear_id);
+            $newid = addStudent($firstname, $lastname, $schoolyear_id, 'enabled');
             $response['response'] = "success";
             $response['message'] = "Successfully added {$firstname} {$lastname}.";
             $response['newid'] = $newid;
