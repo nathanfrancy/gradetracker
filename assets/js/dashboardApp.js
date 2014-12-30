@@ -4,12 +4,7 @@ dashboardApp.config(function($routeProvider) {
 $routeProvider
     .when('/',
         {
-          redirectTo: '/home'
-        })
-    .when('/home',
-        {
-          controller: 'DashboardHomeCtrl',
-          templateUrl: 'partials/dashboard/_dashboard_home.html'
+          redirectTo: '/browse'
         })
     .when('/browse',
         {
@@ -64,7 +59,7 @@ $routeProvider
           templateUrl: 'partials/standard/_standard_recordgrades.html'
         })
     
-    .otherwise({redirectTo: '/home'})
+    .otherwise({redirectTo: '/browse'})
 });
 
 dashboardApp.controller('NavBarController', function ($scope, $log, $location) {
@@ -87,4 +82,12 @@ dashboardApp.controller('NavBarController', function ($scope, $log, $location) {
         $event.stopPropagation();
         $scope.status.isopen = !$scope.status.isopen;
     };
+});
+
+dashboardApp.controller('SchoolYearNavController', function ($scope, $log, $location, schoolYearFactory) {
+    schoolYearFactory.getAllSchoolYears()
+        .success(function (data) {
+            $scope.schoolYears = data;
+        })
+        .error(function (error) {});
 });
