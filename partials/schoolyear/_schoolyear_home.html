@@ -20,9 +20,11 @@
                             <td><a href="#/browse/schoolyear/{{ schoolYear.id }}">{{ schoolYear.title }}</a></td>
                             <td>{{ schoolYear.num_students }} students</td>
                             <td>
-                                <a href="#/browse/schoolyear/{{ schoolYear.id }}">Browse</a>&nbsp;
-                                <a href="#/schoolyear/edit/{{ schoolYear.id }}">Edit</a>&nbsp;
-                                <a href="#/">Delete</a>
+                                <a href="#/browse/schoolyear/{{ schoolYear.id }}"><i class="fa fa-th"></i>&nbsp;Browse</a>&nbsp;&nbsp;
+                                <a href="printable.php?id={{schoolYear.id}}" target="_blank"><i class="fa fa-table"></i>&nbsp;Print</a>&nbsp;&nbsp;
+                                <a href="#/schoolyear/edit/{{ schoolYear.id }}"><i class="fa fa-edit"></i>&nbsp;Edit</a>&nbsp;&nbsp;
+                                <a href="#/"><i class="fa fa-remove"></i>&nbsp;Delete</a>&nbsp;
+                                
                             </td>
                         </tr>
                     </tbody>

@@ -53,7 +53,7 @@ function getStandard($id) {
 
 function addStandard($title, $description, $date_given, $schoolyear_id) {
     $link = connect_db();
-	$sql = "INSERT INTO  `standard` (`title`, `description`, `date_given`, `schoolyear_id`) VALUES (?, ?, ?)";
+	$sql = "INSERT INTO  `standard` (`title`, `description`, `date_given`, `schoolyear_id`) VALUES (?, ?, ?, ?)";
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
 	$stmt->bind_param('sssi', $link->real_escape_string($title), $link->real_escape_string($description), $link->real_escape_string($date_given), $schoolyear_id);
