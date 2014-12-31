@@ -47,4 +47,27 @@ function getUser($id) {
 	return $user;
 }
 
+function createNewUser($firstname, $lastname, $email, $username, $password) {
+    $link = connect_db();
+	$sql = "INSERT INTO  `user` (`firstname`, `lastname`, `email`, `username`, `password`) VALUES (?, ?, ?, ?, ?)";
+	$stmt = $link->stmt_init();
+	$stmt->prepare($sql);
+	$stmt->bind_param('sssss', 
+                      $link->real_escape_string($firstname), 
+                      $link->real_escape_string($lastname), 
+                      $link->real_escape_string($email), 
+                      $link->real_escape_string($username),
+                      $link->real_escape_string(sha1($password)));
+	$stmt->execute();
+	$id = $link->insert_id;
+	mysqli_stmt_close($stmt);
+	$link->close();
+    
+    if ($id !== 0) {
+		$_SESSION['auth_id'] = $id;
+	}
+	
+	return $id;
+}
+
 ?>

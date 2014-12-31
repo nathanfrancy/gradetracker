@@ -41,27 +41,33 @@ if (isset($_GET['feedback'])) { $feedback = $_GET['feedback']; $feedbackValid = 
 
 <body>
     <div class="container">
-        <form class="form-signin" action="controllers/login.php" method="post" role="form">
-            <h1 class="text-center">Sign in</h1><br>
+        <form class="form-signin" action="controllers/signup.php" method="post" role="form">
+            <h1 class="text-center">Sign up</h1><br>
             <div class="alert alert-danger" id="loginAlert" role="alert" style="display: none;"></div>
-			<input type="text" class="form-control" id="username" placeholder="Username" required autofocus>
+            <input type="text" class="form-control" id="firstname" placeholder="First name" required autofocus>
+            <input type="text" class="form-control" id="lastname" placeholder="Last name" required>
+            <input type="text" class="form-control" id="email" placeholder="Email" required>
+			<input type="text" class="form-control" id="username" placeholder="Username" required>
 			<input type="password" class="form-control" id="password" placeholder="Password" required>
-			<button class="btn btn-lg btn-primary btn-block" id="signInButton">Sign in</button>
-			<br /><br>
-            <a class="btn btn-lg btn-default btn-block" href="signup.php">Sign up <span class="glyphicon glyphicon-arrow-right"></span></a>
+			<button class="btn btn-lg btn-primary btn-block" id="signUpButton">Sign up</button>
+			<br /><br />
+            <a class="btn btn-lg btn-default btn-block" href="index.php"><span class="glyphicon glyphicon-arrow-left"></span> Back to Sign in</a>
 			
 		</form>
     </div>
 </body>
     
 <script>
-    $("#signInButton").click(function (e) {
+    $("#signUpButton").click(function (e) {
         e.preventDefault();
         $.ajax({
             type: "POST",
-            url: "controllers/login.php",
+            url: "controllers/signup.php",
             data: {
                 controllerType: "login",
+                firstname: $("#firstname").val().trim(),
+                lastname: $("#lastname").val().trim(),
+                email: $("#email").val().trim(),
                 username: $("#username").val().trim(),
                 password: $("#password").val()
             },

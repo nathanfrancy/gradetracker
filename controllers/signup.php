@@ -17,13 +17,19 @@ if ($controllerType != null) {
 		$valid = true;
 		
 		// variables that checking for login, and updating $valid if one of them isn't set
-		$username = $_POST['username'];
+        $firstname = $_POST['firstname'];
+		$valid = isset($_POST['firstname']) && $_POST['firstname'] !== "";
+        $lastname = $_POST['lastname'];
+		$valid = isset($_POST['lastname']) && $_POST['lastname'] !== "";
+        $email = $_POST['email'];
+		$valid = isset($_POST['email']) && $_POST['email'] !== "";
+        $username = $_POST['username'];
 		$valid = isset($_POST['username']) && $_POST['username'] !== "";
-		$password = $_POST['password'];
+        $password = $_POST['password'];
 		$valid = isset($_POST['password']) && $_POST['password'] !== "";
 		
 		if ($valid) {
-			$userid = validate($username, $password);
+			$userid = createNewUser($firstname, $lastname, $email, $username, $password);
 			
 			if ($userid != 0) {
 				$response['message'] = "valid";
@@ -43,3 +49,4 @@ if ($controllerType != null) {
 	}
     
 }
+?>
