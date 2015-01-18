@@ -70,4 +70,26 @@ function createNewUser($firstname, $lastname, $email, $username, $password) {
 	return $id;
 }
 
+function getOwnerOfSchoolYear($standard) {
+    $owner_id = 0;
+    $schoolyear_id = $standard['schoolyear_id'];
+    
+    // Connect and initialize sql and prepared statement template
+	$link = connect_db();
+	$sql = "SELECT * FROM schoolyear WHERE id = ? LIMIT 1";
+	$stmt = $link->stmt_init();
+	$stmt->prepare($sql);
+	$stmt->bind_param('i', $schoolyear_id);
+	$stmt->execute();
+	$result = $stmt->get_result();
+
+	while ($row = $result->fetch_array(MYSQLI_BOTH)) {
+		$owner_id = $row['user_id'];
+	}
+	
+	mysqli_stmt_close($stmt);
+    
+    return $owner_id;
+}
+
 ?>
