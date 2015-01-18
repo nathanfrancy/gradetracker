@@ -42,7 +42,7 @@ if (isset($_GET['feedback'])) { $feedback = $_GET['feedback']; $feedbackValid = 
 <body>
     <div class="container">
         <form class="form-signin" action="controllers/login.php" method="post" role="form">
-            <h1 class="text-center">Sign in</h1><br>
+            <h1 class="text-center" style="color: #000000;">Sign in</h1><br>
             <div class="alert alert-danger" id="loginAlert" role="alert" style="display: none;"></div>
 			<input type="text" class="form-control" id="username" placeholder="Username" required autofocus>
 			<input type="password" class="form-control" id="password" placeholder="Password" required>
