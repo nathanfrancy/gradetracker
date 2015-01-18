@@ -17,24 +17,34 @@ $date_given = $data->date_given;
 $status = $data->status;
 
 
-if ($rq == "editSchoolYear") {
-	$response = null;
-	$schoolyear = editSchoolYear($id, $title);
-	$response['message'] = "success";
-}
-else if ($rq == "editStudent") {
-	$response = null;
-	$student = editStudent($id, $firstname, $lastname, $status);
-	$response['message'] = "success";
-}
-else if ($rq == "editStandard") {
-	$response = null;
-	$standard = editStandard($id, $title, $description, $date_given);
-	$response['message'] = "success";
+// Check if a session auth_id is present. Must be logged in at the very least
+// to view any type of data in the system. Otherwise get an error.
+if (isset($_SESSION['auth_id'])) {
+    $auth_id = $_SESSION['auth_id'];
+
+	if ($rq == "editSchoolYear") {
+		$response = null;
+		$schoolyear = editSchoolYear($id, $title);
+		$response['message'] = "success";
+	}
+	else if ($rq == "editStudent") {
+		$response = null;
+		$student = editStudent($id, $firstname, $lastname, $status);
+		$response['message'] = "success";
+	}
+	else if ($rq == "editStandard") {
+		$response = null;
+		$standard = editStandard($id, $title, $description, $date_given);
+		$response['message'] = "success";
+	}
+	else {
+		$response['response'] = "fail";
+		$response['message'] = "Request type is invalid.";
+	}
 }
 else {
-	$response['message'] = "fail";
-	$response['error_message'] = "Request type is invalid.";
+	$response['response'] = "fail";
+	$response['message'] = "You cannot perform this operation.";
 }
 
 header('Content-Type: application/json');
