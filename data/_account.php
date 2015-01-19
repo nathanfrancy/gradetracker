@@ -41,6 +41,7 @@ function getUser($id) {
         $user['lastname'] = $row['lastname'];
         $user['email'] = $row['email'];
         $user['username'] = $row['username'];
+        $user['theme'] = $row['theme'];
 	}
 	
 	mysqli_stmt_close($stmt);

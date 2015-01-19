@@ -25,7 +25,7 @@ if (isset($_GET['feedback'])) { $feedback = $_GET['feedback']; $feedbackValid = 
     <title>Sign In</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="assets/vendor/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/css/bootswatch/bootstrap.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="assets/vendor/css/signin.css" rel="stylesheet">

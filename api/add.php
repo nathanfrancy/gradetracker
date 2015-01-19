@@ -67,7 +67,7 @@ if (isset($_SESSION['auth_id'])) {
             }
             else {
                 $response['response'] = "fail";
-                $response['message'] = "Name is required.";
+                $response['message'] = "Title and date given are required.";
             }
         }
 

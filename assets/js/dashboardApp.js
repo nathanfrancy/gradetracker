@@ -6,6 +6,11 @@ $routeProvider
         {
           redirectTo: '/browse'
         })
+    .when('/profile',
+        {
+          controller: 'AccountHomeCtrl',
+          templateUrl: 'partials/account/profile_home.html'
+        })
     .when('/browse',
         {
           controller: 'SchoolYearHomeCtrl',

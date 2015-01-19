@@ -17,10 +17,10 @@
                 <li>
                     <form class="navbar-form">
                         <div class="btn-group" dropdown>
-                            <button href="#/home" type="button" class="btn btn-primary">
+                            <a href="#/profile" type="button" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;
                                 <?php echo $user[ 'username']; ?>
-                            </button>
+                            </a>
                             <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
                                 <span class="caret"></span>
                                 <span class="sr-only">Split button!</span>

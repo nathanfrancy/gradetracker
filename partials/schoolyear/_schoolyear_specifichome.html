@@ -56,7 +56,7 @@
 			</div>
 		  	<div class="panel-body">
 		    	<table class="table table-hover">
-		    		<caption><a href="#/browse/schoolyear/{{schoolyear.id}}/addquarter"><i class="fa fa-fw fa-plus-circle"></i> Add</a></caption>
+		    		<caption><a class="pull-left" href="#/browse/schoolyear/{{schoolyear.id}}/addquarter"><i class="fa fa-fw fa-plus-circle"></i> Add</a></caption>
 		    		<tbody>
 						<tr ng-repeat="quarter in quarters">
 							<td>{{ quarter.title }}</td>
@@ -71,10 +71,8 @@
 			</div>
 		  	<div class="panel-body">
 		    	<table class="table table-hover">
-		    		<caption><a href="#/browse/schoolyear/{{schoolyear.id}}/addstudent"><i class="fa fa-fw fa-plus-circle"></i> Add</a></caption>
+		    		<caption><a class="pull-left" href="#/browse/schoolyear/{{schoolyear.id}}/addstudent"><i class="fa fa-fw fa-plus-circle"></i> Add</a></caption>
 		    		<tbody>
-                        
-                        
 						<tr ng-repeat="student in roster">
 							<td ng-if="student.status == 'enabled'">
 								<i class="fa fa-user" style="color: HSLA(208, 56%, 46%, 1);"></i> {{ student.lastname }}, {{ student.firstname }}&nbsp;
@@ -94,3 +92,4 @@
 
 <br><br>
 <a href="#/browse" class="btn btn-default btn-sm"><i class="fa fa-fw fa-chevron-circle-left"></i> Back</a>
+<br><br>

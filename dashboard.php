@@ -1,9 +1,16 @@
 <?php 
 session_start();
+
 $user = null;
 if ( isset($_SESSION['auth_id']) && ($_SESSION['auth_id'] != 0) ) {
     require('data/master.php');
     $user = getUser($_SESSION['auth_id']);
+
+    // Get the user's theme, and make sure it is one of the default themes, if not resolve to "bootstrap" default template
+    // TODO: eventually fix the user's profile to be set back to default if something goes wrong
+    $bootswatch_whitelist = array("cerulean", "cosmo", "cyborg", "darkly","flatly", "journal", "lumen", "paper", "readable", "sandstone", "simplex", "slate", "spacelab", "superhero", "united", "yeti");
+    $theme = $user['theme'];
+    if (!in_array($theme, $bootswatch_whitelist)) { $theme = "bootstrap"; }
 }
 else {
     header("Location: index.php");
@@ -22,7 +29,7 @@ else {
     <title>Dashboard</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="assets/vendor/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/css/bootswatch/<?php echo $theme; ?>.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <!--<link href="assets/vendor/css/sb-admin.css" rel="stylesheet">-->

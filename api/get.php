@@ -53,6 +53,10 @@ if (isset($_SESSION['auth_id'])) {
             $students = getStudentsWithStandardGrades($_GET['schoolyear_id'], $_GET['standard_id']);
             $response = $students;
         }
+        else if ($rq === "getUser") {
+            $user = getUser($_SESSION['auth_id']);
+            $response = $user;
+        }
         else {
             $response['response'] = "fail";
             $response['message'] = "Request type not valid.";

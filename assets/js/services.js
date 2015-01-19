@@ -1,3 +1,13 @@
+angular.module('dashboardApp').factory('accountFactory', ['$http', function($http) {
+    var dataFactory = {};
+
+    dataFactory.getUser = function () {
+        return $http.get('/api/get.php?rq=getUser');
+    };
+
+    return dataFactory;
+}]);
+
 angular.module('dashboardApp').factory('schoolYearFactory', ['$http', function($http) {
     var dataFactory = {};
 
