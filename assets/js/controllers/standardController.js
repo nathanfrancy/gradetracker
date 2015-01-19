@@ -17,7 +17,9 @@ dashboardApp.controller('StandardAddCtrl', ['$scope', '$window', '$routeParams',
     }
 }]);
 
-dashboardApp.controller('StandardEditCtrl', ['$scope', '$window', '$routeParams', 'standardFactory', 'studentFactory', 'schoolYearFactory', function ($scope, $window, $routeParams, standardFactory, studentFactory, schoolYearFactory) {
+dashboardApp.controller('StandardEditCtrl', ['$scope', '$window', '$routeParams', 'standardFactory', 'studentFactory', 'schoolYearFactory', 
+function ($scope, $window, $routeParams, standardFactory, studentFactory, schoolYearFactory) {
+    
     $scope.id = $routeParams.standardId;
     $scope.schoolYearId = $routeParams.schoolYearId;
 
@@ -47,7 +49,9 @@ dashboardApp.controller('StandardEditCtrl', ['$scope', '$window', '$routeParams'
     }
 }]);
 
-dashboardApp.controller('StandardRecordGradesCtrl', ['$scope', '$window', '$routeParams', 'standardFactory', 'studentFactory', 'schoolYearFactory', 'gradeFactory', function ($scope, $window, $routeParams, standardFactory, studentFactory, schoolYearFactory, gradeFactory) {
+dashboardApp.controller('StandardRecordGradesCtrl', ['$scope', '$window', '$routeParams', 'standardFactory', 'studentFactory', 'schoolYearFactory', 'gradeFactory', 
+function ($scope, $window, $routeParams, standardFactory, studentFactory, schoolYearFactory, gradeFactory) {
+
     $scope.id = $routeParams.standardId;
     $scope.schoolYearId = $routeParams.schoolYearId;
 

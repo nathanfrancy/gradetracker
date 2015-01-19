@@ -8,9 +8,9 @@ angular.module('dashboardApp').factory('accountFactory', ['$http', function($htt
         return $http({ url: '/api/edit.php', dataType: 'json', method: 'PUT',
                     data: { rq: 'editUser', id: user.id, firstname: user.firstname, lastname: user.lastname, email: user.email, username: user.username, theme: user.theme }, headers: { "Content-Type": "application/json"}});
     };
-    dataFactory.passwordReset = function (user) {
+    dataFactory.userPasswordReset = function (user) {
         return $http({ url: '/api/edit.php', dataType: 'json', method: 'PUT',
-                    data: { rq: 'userPasswordReset', oldpassword: user.oldpassword, newpassword: newpassword }, headers: { "Content-Type": "application/json"}});
+                    data: { rq: 'userPasswordReset', currentpassword: user.currentpassword, newpassword: user.newpassword_1 }, headers: { "Content-Type": "application/json"}});
     };
 
     return dataFactory;
@@ -104,3 +104,19 @@ angular.module('dashboardApp').factory('gradeFactory', ['$http', function($http)
 
     return dataFactory;
 }]);
+
+/* Notification service, include in in dependencies - call alertService.alert(msg, type, seconds) to push to view */
+/* Temporarily using jquery to show and hide messages */
+dashboardApp.service('alertService', function($timeout) {
+    var serv = {};
+    serv.alert = function(msg, type, seconds) {
+        jQuery("#alert-container .alert").removeClass("alert-success alert-danger alert-warning alert-info");
+        jQuery("#alert-container .alert").addClass("alert-" + type);
+        jQuery("#alert-container .alert span").html(msg);
+        jQuery("#alert-container").fadeIn();
+        $timeout(function() {
+            jQuery("#alert-container").fadeOut();
+        }, (seconds*1000) );
+    }
+    return serv;
+});

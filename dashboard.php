@@ -69,10 +69,20 @@ else {
     <!-- Navbar -->
     <?php require('partials/navbar.php'); ?>
     
+    <!-- Wrapper for the views -->
     <div id="wrapper" class="container-fluid">
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div ng-view></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert service -->
+    <div id="alert-container" style="display: none;">
+        <div class="row">
+            <div class="col-sm-offset-4 col-sm-4">
+                <div class="alert alert-success"><span></span></div>
             </div>
         </div>
     </div>

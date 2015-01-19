@@ -2,11 +2,14 @@ dashboardApp.controller('SchoolYearHomeCtrl', ['$scope', 'schoolYearFactory', fu
     schoolYearFactory.getAllSchoolYears()
         .success(function (data) {
             $scope.schoolYears = data;
+            $scope.predicate = '-title';
         })
         .error(function (error) {});
 }]);
 
-dashboardApp.controller('SchoolYearSpecificHomeCtrl', ['$scope', '$routeParams', 'schoolYearFactory', 'studentFactory', 'standardFactory', function ($scope, $routeParams, schoolYearFactory, studentFactory, standardFactory) {
+dashboardApp.controller('SchoolYearSpecificHomeCtrl', ['$scope', '$routeParams', 'schoolYearFactory', 'studentFactory', 'standardFactory', 
+function ($scope, $routeParams, schoolYearFactory, studentFactory, standardFactory) {
+
     $scope.id = $routeParams.id;
     $scope.quarters = [
         { title: "Quarter 1" },
@@ -36,19 +39,24 @@ dashboardApp.controller('SchoolYearSpecificHomeCtrl', ['$scope', '$routeParams',
         .error(function (error) {});
 }]);
 
-dashboardApp.controller('SchoolYearAddCtrl', ['$scope', '$window', '$routeParams', 'schoolYearFactory', function ($scope, $window, $routeParams, schoolYearFactory) {
+dashboardApp.controller('SchoolYearAddCtrl', ['$scope', '$window', '$routeParams', 'schoolYearFactory', 'alertService', 
+function ($scope, $window, $routeParams, schoolYearFactory, alertService) {
+    
     $scope.schoolYearId = $routeParams.id;
 
     $scope.add = function() {
         schoolYearFactory.addSchoolYear($scope.title)
         .success(function (data) {
+            alertService.alert("Successfully added the school year.", "success", 3);
             $window.location.href = '#/browse';
         })
         .error(function (error) {});
     }
 }]);
 
-dashboardApp.controller('SchoolYearEditCtrl', ['$scope', '$window', '$routeParams', 'schoolYearFactory', function ($scope, $window, $routeParams, schoolYearFactory) {
+dashboardApp.controller('SchoolYearEditCtrl', ['$scope', '$window', '$routeParams', 'schoolYearFactory', 
+function ($scope, $window, $routeParams, schoolYearFactory) {
+    
     $scope.id = $routeParams.id;
     
     schoolYearFactory.getSchoolYear($scope.id)

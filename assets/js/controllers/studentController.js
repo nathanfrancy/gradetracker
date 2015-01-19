@@ -1,4 +1,5 @@
-dashboardApp.controller('StudentAddCtrl', ['$scope', '$window', '$routeParams', 'studentFactory', 'schoolYearFactory', function ($scope, $window, $routeParams, studentFactory, schoolYearFactory) {
+dashboardApp.controller('StudentAddCtrl', ['$scope', '$window', '$routeParams', 'studentFactory', 'schoolYearFactory', 
+function ($scope, $window, $routeParams, studentFactory, schoolYearFactory) {
 
     schoolYearFactory.getSchoolYear($routeParams.schoolYearId)
         .success(function (data) {
@@ -15,7 +16,9 @@ dashboardApp.controller('StudentAddCtrl', ['$scope', '$window', '$routeParams', 
     }
 }]);
 
-dashboardApp.controller('StudentEditCtrl', ['$scope', '$window', '$routeParams', 'studentFactory', 'schoolYearFactory', function ($scope, $window, $routeParams, studentFactory, schoolYearFactory) {
+dashboardApp.controller('StudentEditCtrl', ['$scope', '$window', '$routeParams', 'studentFactory', 'schoolYearFactory', 
+function ($scope, $window, $routeParams, studentFactory, schoolYearFactory) {
+
     $scope.id = $routeParams.studentId;
     $scope.schoolYearId = $routeParams.schoolYearId;
 

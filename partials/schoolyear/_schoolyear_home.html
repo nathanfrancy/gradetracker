@@ -4,11 +4,11 @@
     </div>
     <div class="col-sm-8">
         <h1 class="page-header">Browse <small>School Years</small></h1>
-        <a href="#/schoolyear/add" style="margin-bottom: 10px;" class="pull-left"><i class="fa fa-fw fa-plus-circle"></i> Add</a>
+        <a class="btn btn-default" href="#/schoolyear/add" style="margin-bottom: 10px;" class="pull-left"><i class="fa fa-fw fa-plus-circle"></i> Add</a>
         <div class="row">
             <div class="col-sm-12">
                 <div class="row">
-                    <div ng-repeat="schoolYear in schoolYears" class="col-sm-6">
+                    <div ng-repeat="schoolYear in schoolYears | orderBy: predicate:reverse" class="col-sm-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="row">

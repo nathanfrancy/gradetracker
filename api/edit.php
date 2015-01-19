@@ -19,6 +19,9 @@ $theme = $data->theme;
 $date_given = $data->date_given;
 $status = $data->status;
 
+$currentpassword = $data->currentpassword;
+$newpassword = $data->newpassword;
+
 
 // Check if a session auth_id is present. Must be logged in at the very least
 // to view any type of data in the system. Otherwise get an error.
@@ -52,6 +55,10 @@ if (isset($_SESSION['auth_id'])) {
 			$response['response'] = "fail";
 			$response['message'] = "Something fishy is going on here.";
 		}
+	}
+	else if ($rq == "userPasswordReset") {
+		$response = null;
+		$response['response'] = changePassword($currentpassword, $newpassword);
 	}
 	else {
 		$response['response'] = "fail";

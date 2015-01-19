@@ -1,16 +1,20 @@
 /* partials/account/profile_home.html */
-dashboardApp.controller('AccountHomeCtrl', ['$scope', 'accountFactory', function ($scope, accountFactory) {
+dashboardApp.controller('AccountHomeCtrl', ['$scope', 'accountFactory', 'alertService', function ($scope, accountFactory, alertService) {
 	
+
 	accountFactory.getUser()
         .success(function (data) {
             $scope.user = data;
         })
-        .error(function (error) {});
+        .error(function (error) {
+            alertService.alert("Couldn't load user.", "danger", 3);
+        });
 }]);
 
 
 /* partials/account/profile_edit.html */
-dashboardApp.controller('AccountEditCtrl', ['$scope', 'accountFactory', function ($scope, accountFactory) {
+dashboardApp.controller('AccountEditCtrl', ['$scope', '$window', 'accountFactory', 'alertService', 
+    function ($scope, $window, accountFactory, alertService) {
 	
     $scope.bootswatch_themes = [
 		"cerulean", "cosmo", "cyborg", "darkly","flatly", "journal", "lumen", "paper", "readable", "sandstone", "simplex", "slate", "spacelab", "superhero", "united", "yeti"
@@ -20,20 +24,38 @@ dashboardApp.controller('AccountEditCtrl', ['$scope', 'accountFactory', function
         .success(function (data) {
             $scope.user = data;
         })
-        .error(function (error) {});
+        .error(function (error) {
+            alertService.alert("Couldn't load user.", "danger", 3);
+        });
 
     $scope.submitEditProfile = function(user) {
         accountFactory.editUser(user)
             .success(function (data) {
-                console.log(data);
+                alertService.alert("Successfully updated your profile.", "success", 3);
+                $window.location.href = '#/profile';
             })
-            .error(function (error) {});
+            .error(function (error) {
+                alertService.alert("Error occurred while trying to update user.", "danger", 3);
+            });
     };
 
-    $scope.submitPasswordReset = function(user) {
+    $scope.userPasswordReset = function(user) {
         // Check if new passwords match
         if (user.newpassword_1 == user.newpassword_2) {
 
+            accountFactory.userPasswordReset(user)
+                .success(function (data) {
+                    if (data.response == true) {
+                        alertService.alert("Successfully updated your password.", "success", 3);
+                        $window.location.href = '#/profile';
+                    }
+                    else {
+                        alertService.alert("Error: make sure current password is correct.", "warning", 3);
+                    }
+                })
+                .error(function (error) {
+                    alertService.alert("Error occured when trying to update password.", "danger", 3);
+                });
         }
     };
 
@@ -41,4 +63,11 @@ dashboardApp.controller('AccountEditCtrl', ['$scope', 'accountFactory', function
     $scope.updateTheme = function(theme) {
     	jQuery("link#boots_theme").attr("href", "assets/vendor/css/bootswatch/"+ theme +".css");
     };
+}]);
+
+dashboardApp.controller('AlertCtrl', ['$scope', function ($scope) {
+    $scope.alerts = [
+        { msg: "Test 1", type: "success" },
+        { msg: "Test 2", type: "warning" }
+    ]
 }]);

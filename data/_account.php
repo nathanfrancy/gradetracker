@@ -22,6 +22,48 @@ function validate($input_username, $input_password) {
 	return $userid;
 }
 
+function checkPassword($try) {
+	$password_encrypted = null;
+	
+	// Connect and initialize sql and prepared statement template
+	$link = connect_db();
+	$sql = "SELECT password FROM user WHERE id = ? LIMIT 1";
+	$stmt = $link->stmt_init();
+	$stmt->prepare($sql);
+	$stmt->bind_param('i', $_SESSION['auth_id']);
+	$stmt->execute();
+	$result = $stmt->get_result();
+
+	// bind the result to $theBook for json encoding
+	while ($row = $result->fetch_array(MYSQLI_BOTH)) {
+		$password_encrypted = $row['password'];
+	}
+	mysqli_stmt_close($stmt);
+
+	if (sha1($try) === $password_encrypted) {
+		return TRUE;
+	}
+	return FALSE;
+}
+
+function changePassword($oldpassword, $newpassword) {
+	$is_valid = checkPassword($oldpassword);
+	if ($is_valid === TRUE) {
+		$link = connect_db();
+		$sql = "UPDATE  `user` SET `password`=? WHERE id = ?";
+		$stmt = $link->stmt_init();
+		$stmt->prepare($sql);
+		$stmt->bind_param('si', sha1($link->real_escape_string($newpassword)), $_SESSION['auth_id']);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		mysqli_stmt_close($stmt);
+		return TRUE;
+	}
+	else {
+		return FALSE;
+	}
+}
+
 function getUser($id) {
 	$user = null;
 	
