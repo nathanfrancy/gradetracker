@@ -13,6 +13,9 @@ $title = $data->title;
 $description = $data->description;
 $firstname = $data->firstname;
 $lastname = $data->lastname;
+$email = $data->email;
+$username = $data->username;
+$theme = $data->theme;
 $date_given = $data->date_given;
 $status = $data->status;
 
@@ -36,6 +39,19 @@ if (isset($_SESSION['auth_id'])) {
 		$response = null;
 		$standard = editStandard($id, $title, $description, $date_given);
 		$response['message'] = "success";
+	}
+	else if ($rq == "editUser") {
+		$response = null;
+
+		// Check if auth_id and posted id match
+		if ($auth_id === $id) {
+			$response['response'] = "success";
+			$response['message'] = editUser($id, $firstname, $lastname, $email, $username, $theme);
+		}
+		else {
+			$response['response'] = "fail";
+			$response['message'] = "Something fishy is going on here.";
+		}
 	}
 	else {
 		$response['response'] = "fail";

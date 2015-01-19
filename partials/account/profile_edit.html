@@ -1,0 +1,75 @@
+<h1 class="page-header"><a href="#/profile"><i class="fa fa-arrow-circle-left"></i></a> My Profile</h1>
+<div class="row">
+	<div class="col-sm-6">
+		<form class="form-horizontal">
+		  <div class="form-group">
+		    <label class="col-sm-2 control-label">ID</label>
+		    <div class="col-sm-10">
+		      <input class="form-control" ng-model="user.id" readonly>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-2 control-label">First Name</label>
+		    <div class="col-sm-10">
+		      <input class="form-control" ng-model="user.firstname">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-2 control-label">Last Name</label>
+		    <div class="col-sm-10">
+		      <input class="form-control" ng-model="user.lastname">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-2 control-label">Username</label>
+		    <div class="col-sm-10">
+		      <input class="form-control" ng-model="user.username">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-2 control-label">Email</label>
+		    <div class="col-sm-10">
+		      <input class="form-control" ng-model="user.email">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-2 control-label">Theme</label>
+		    <div class="col-sm-10">
+		    	<select ng-model="user.theme" class="form-control" ng-change="updateTheme(user.theme)">
+		    		<option ng-repeat="boot in bootswatch_themes">{{ boot }}</option>
+		    	</select>
+		    </div>
+		  </div>
+		</form>
+		<br>
+		<button ng-click="submitEditProfile(user)" class="btn btn-primary btn-block">Submit Changes</button>
+		<br><br>
+		<a href="#/profile" class="btn btn-default"><i class="fa fa-arrow-circle-left"></i> Back to My Profile</a>
+	</div>
+	<div class="col-sm-6">
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Password Reset</h3>
+		  </div>
+		  <div class="panel-body">
+		  	<form class="">
+			  <div class="form-group">
+			    <label class="control-label">Current Password</label>
+			    <input class="form-control" type="password" ng-model="user.currentpassword" placeholder="Enter the current password">
+			  </div>
+			  <div class="form-group">
+			    <label class="control-label">New Password</label>
+			    <input class="form-control" type="password" ng-model="user.newpassword_1" placeholder="The new password you'd like">
+			  </div>
+			  <div class="form-group">
+			    <label class="control-label">Confirm New Password</label>
+			    <input class="form-control" type="password" ng-model="user.newpassword_2" placeholder="Re-type the new password">
+			  </div>
+			  <div class="form-group">
+			    <button ng-click="passwordReset(user)" class="btn btn-default">Submit</button>
+			  </div>
+			</form>
+		  </div>
+		</div>
+	</div>
+</div>

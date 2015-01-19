@@ -71,6 +71,38 @@ function createNewUser($firstname, $lastname, $email, $username, $password) {
 	return $id;
 }
 
+function editUser($id, $firstname, $lastname, $email, $username, $theme) {
+	
+	// Check if auth_id and submitted id match. If so, go ahead and perform update
+	if ($id === $_SESSION['auth_id']) {
+		$link = connect_db();
+		$sql = "UPDATE  `user` SET `firstname`=?, `lastname`=?, `email`=?, `username`=?, `theme`=? WHERE id = ?";
+		
+		// Create prepared statement and bind parameters
+		$stmt = $link->stmt_init();
+		$stmt->prepare($sql);
+		$stmt->bind_param('sssssi', 
+			$link->real_escape_string($firstname), 
+			$link->real_escape_string($lastname), 
+			$link->real_escape_string($email), 
+			$link->real_escape_string($username), 
+			$link->real_escape_string($theme), 
+			$_SESSION['auth_id']);
+		
+	    // Execute the query, get the last inserted id
+	    $stmt->execute();
+		$rows = $link->affected_rows;
+		mysqli_stmt_close($stmt);
+		$link->close();
+	    $student = getStudent($id);
+		
+		return "Successfully edited {$firstname} {$lastname}.";
+	}
+	else {
+		return "You are not logged into the account you are trying to edit.";
+	}
+}
+
 function getOwnerOfSchoolYear($standard) {
     $owner_id = 0;
     $schoolyear_id = $standard['schoolyear_id'];

@@ -4,6 +4,14 @@ angular.module('dashboardApp').factory('accountFactory', ['$http', function($htt
     dataFactory.getUser = function () {
         return $http.get('/api/get.php?rq=getUser');
     };
+    dataFactory.editUser = function (user) {
+        return $http({ url: '/api/edit.php', dataType: 'json', method: 'PUT',
+                    data: { rq: 'editUser', id: user.id, firstname: user.firstname, lastname: user.lastname, email: user.email, username: user.username, theme: user.theme }, headers: { "Content-Type": "application/json"}});
+    };
+    dataFactory.editUser = function (user) {
+        return $http({ url: '/api/edit.php', dataType: 'json', method: 'PUT',
+                    data: { rq: 'userPasswordReset', oldpassword: user.oldpassword, newpassword: newpassword }, headers: { "Content-Type": "application/json"}});
+    };
 
     return dataFactory;
 }]);
@@ -25,12 +33,6 @@ angular.module('dashboardApp').factory('schoolYearFactory', ['$http', function($
         return $http({ url: '/api/edit.php', dataType: 'json', method: 'PUT',
                     data: { rq: 'editSchoolYear', id: id, title: title }, headers: { "Content-Type": "application/json"}});
     };
-    /*
-    dataFactory.deleteCity = function (city) {
-        return $http({ url: '/api/delete/index.php', dataType: 'json', method: 'PUT',
-                    data: { rq: 'deleteCity', id: city.id }, headers: { "Content-Type": "application/json"}});
-    };
-    */
 
     return dataFactory;
 }]);

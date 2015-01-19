@@ -29,7 +29,7 @@ else {
     <title>Dashboard</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="assets/vendor/css/bootswatch/<?php echo $theme; ?>.css" rel="stylesheet">
+    <link id="boots_theme" href="assets/vendor/css/bootswatch/<?php echo $theme; ?>.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <!--<link href="assets/vendor/css/sb-admin.css" rel="stylesheet">-->
@@ -53,6 +53,7 @@ else {
     <script src="assets/js/services.js"></script>
     
     <!-- Angular custom controllers -->
+    <script src="assets/js/controllers/accountController.js"></script>
     <script src="assets/js/controllers/dashboardController.js"></script>
     <script src="assets/js/controllers/schoolYearController.js"></script>
     <script src="assets/js/controllers/studentController.js"></script>

@@ -11,6 +11,11 @@ $routeProvider
           controller: 'AccountHomeCtrl',
           templateUrl: 'partials/account/profile_home.html'
         })
+    .when('/profile/edit',
+        {
+          controller: 'AccountEditCtrl',
+          templateUrl: 'partials/account/profile_edit.html'
+        })
     .when('/browse',
         {
           controller: 'SchoolYearHomeCtrl',
