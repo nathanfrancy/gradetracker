@@ -8,7 +8,7 @@ angular.module('dashboardApp').factory('accountFactory', ['$http', function($htt
         return $http({ url: '/api/edit.php', dataType: 'json', method: 'PUT',
                     data: { rq: 'editUser', id: user.id, firstname: user.firstname, lastname: user.lastname, email: user.email, username: user.username, theme: user.theme }, headers: { "Content-Type": "application/json"}});
     };
-    dataFactory.editUser = function (user) {
+    dataFactory.passwordReset = function (user) {
         return $http({ url: '/api/edit.php', dataType: 'json', method: 'PUT',
                     data: { rq: 'userPasswordReset', oldpassword: user.oldpassword, newpassword: newpassword }, headers: { "Content-Type": "application/json"}});
     };

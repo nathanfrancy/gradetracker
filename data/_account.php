@@ -72,7 +72,6 @@ function createNewUser($firstname, $lastname, $email, $username, $password) {
 }
 
 function editUser($id, $firstname, $lastname, $email, $username, $theme) {
-	
 	// Check if auth_id and submitted id match. If so, go ahead and perform update
 	if ($id === $_SESSION['auth_id']) {
 		$link = connect_db();
