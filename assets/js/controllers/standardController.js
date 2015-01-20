@@ -1,24 +1,30 @@
-dashboardApp.controller('StandardAddCtrl', ['$scope', '$window', '$routeParams', 'standardFactory', 'studentFactory', 'schoolYearFactory', function ($scope, $window, $routeParams, standardFactory, studentFactory, schoolYearFactory) {
+dashboardApp.controller('StandardAddCtrl', ['$scope', '$window', '$routeParams', 'standardFactory', 'studentFactory', 'schoolYearFactory', 'alertService',
+function ($scope, $window, $routeParams, standardFactory, studentFactory, schoolYearFactory, alertService) {
     
     schoolYearFactory.getSchoolYear($routeParams.schoolYearId)
         .success(function (data) {
             $scope.schoolyear = data;
         })
-        .error(function (error) {});
+        .error(function (error) {
+            alertService.alert("Error loading the school year.", "danger", 3);
+        });
 
     $scope.add = function() {
         var temp = new Date($scope.standard.date_given);
         $scope.standard.date_given =  temp.getFullYear() + "-" + (temp.getMonth()+1) + "-" + temp.getDate();
         standardFactory.addStandard($scope.standard, $scope.schoolyear)
         .success(function (data) {
+            alertService.alert("Successfully added "+ $scope.standard.title +".", "success", 3);
             $window.location.href = '#/browse/schoolyear/' + $scope.schoolyear.id;
         })
-        .error(function (error) {});
+        .error(function (error) {
+            alertService.alert("Error adding "+ $scope.standard.title + ".", "danger", 3);
+        });
     }
 }]);
 
-dashboardApp.controller('StandardEditCtrl', ['$scope', '$window', '$routeParams', 'standardFactory', 'studentFactory', 'schoolYearFactory', 
-function ($scope, $window, $routeParams, standardFactory, studentFactory, schoolYearFactory) {
+dashboardApp.controller('StandardEditCtrl', ['$scope', '$window', '$routeParams', 'standardFactory', 'studentFactory', 'schoolYearFactory', 'alertService', 
+function ($scope, $window, $routeParams, standardFactory, studentFactory, schoolYearFactory, alertService) {
     
     $scope.id = $routeParams.standardId;
     $scope.schoolYearId = $routeParams.schoolYearId;
@@ -28,14 +34,18 @@ function ($scope, $window, $routeParams, standardFactory, studentFactory, school
         .success(function (data) {
             $scope.standard = data;
         })
-        .error(function (error) {});
+        .error(function (error) {
+            alertService.alert("Error loading standard (id="+ $scope.id +".", "danger", 3);
+        });
 
     /* Get the school year to let the user know the student is going in the right class */
     schoolYearFactory.getSchoolYear($scope.schoolYearId)
         .success(function (data) {
             $scope.schoolyear = data;
         })
-        .error(function (error) {});
+        .error(function (error) {
+            alertService.alert("Error loading school year.", "danger", 3);
+        });
 
     $scope.edit = function() {
         var temp = new Date($scope.standard.date_given);
@@ -43,14 +53,17 @@ function ($scope, $window, $routeParams, standardFactory, studentFactory, school
         
         standardFactory.editStandard($scope.standard)
         .success(function (data) {
+            alertService.alert("Successfully edited "+ $scope.standard.title + ".", "success", 3);
             $window.location.href = '#/browse/schoolyear/' + $scope.schoolyear.id;
         })
-        .error(function (error) {});
+        .error(function (error) {
+            alertService.alert("Error editing this standard (id="+ $scope.standard.id +".", "danger", 3);
+        });
     }
 }]);
 
-dashboardApp.controller('StandardRecordGradesCtrl', ['$scope', '$window', '$routeParams', 'standardFactory', 'studentFactory', 'schoolYearFactory', 'gradeFactory', 
-function ($scope, $window, $routeParams, standardFactory, studentFactory, schoolYearFactory, gradeFactory) {
+dashboardApp.controller('StandardRecordGradesCtrl', ['$scope', '$window', '$routeParams', 'standardFactory', 'studentFactory', 'schoolYearFactory', 'gradeFactory', 'alertService',
+function ($scope, $window, $routeParams, standardFactory, studentFactory, schoolYearFactory, gradeFactory, alertService) {
 
     $scope.id = $routeParams.standardId;
     $scope.schoolYearId = $routeParams.schoolYearId;
@@ -73,25 +86,37 @@ function ($scope, $window, $routeParams, standardFactory, studentFactory, school
                         .success(function (data) {
                             $scope.roster = data;
                         })
-                        .error(function (error) {});
+                        .error(function (error) {
+                            alertService.alert("Error loading standard grades.", "danger", 3);
+                        });
                 })
-                .error(function (error) {});
+                .error(function (error) {
+                    alertService.alert("Error loading this standard.", "danger", 3);
+                });
         })
-        .error(function (error) {});
+        .error(function (error) {
+            alertService.alert("Error loading this school year.", "danger", 3);
+        });
     
     $scope.edit = function() {
         standardFactory.editStandard($scope.standard)
         .success(function (data) {
+            alertService.alert("Successfully updated standard grades.", "success", 3);
             $window.location.href = '#/browse/schoolyear/' + $scope.schoolyear.id;
         })
-        .error(function (error) {});
+        .error(function (error) {
+            alertService.alert("Error saving grades.", "danger", 3);
+        });
     }
     
     $scope.recordStandardGrades = function() {
         gradeFactory.recordStandardGrades($scope.roster, $scope.standard)
             .success(function (data) {
+                alertService.alert("Successfully saved standard grades.", "success", 3);
                 $window.location.href = '#/browse/schoolyear/' + $scope.schoolyear.id;
             })
-            .error(function (error) {});
+            .error(function (error) {
+                alertService.alert("Error saving grades.", "danger", 3);
+            });
     }
 }]);

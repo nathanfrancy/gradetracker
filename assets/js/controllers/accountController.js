@@ -62,12 +62,6 @@ dashboardApp.controller('AccountEditCtrl', ['$scope', '$window', 'accountFactory
     // Will run every time the select box is changed
     $scope.updateTheme = function(theme) {
     	jQuery("link#boots_theme").attr("href", "assets/vendor/css/bootswatch/"+ theme +".css");
+        alertService.alert("Viewing "+ theme + " theme. Submit to save.", "warning", 3);
     };
-}]);
-
-dashboardApp.controller('AlertCtrl', ['$scope', function ($scope) {
-    $scope.alerts = [
-        { msg: "Test 1", type: "success" },
-        { msg: "Test 2", type: "warning" }
-    ]
 }]);
