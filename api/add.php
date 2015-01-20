@@ -18,6 +18,16 @@ $date_given = $data->date_given;
 $students = $data->students;
 $standard = $data->standard;
 
+// Variables for school year quarters
+$q1_start = $data->q1_start;
+$q1_end = $data->q1_end;
+$q2_start = $data->q2_start;
+$q2_end = $data->q2_end;
+$q3_start = $data->q3_start;
+$q3_end = $data->q3_end;
+$q4_start = $data->q4_start;
+$q4_end = $data->q4_end;
+
 
 /* Check if there is an authorized id in the session, 
     don't allow anything to happen unless it is present */
@@ -32,7 +42,7 @@ if (isset($_SESSION['auth_id'])) {
          */
         if ($rq === "addSchoolYear") {
             if ($title !== null) {
-                $newid = addSchoolYear($title);
+                $newid = addSchoolYear($title, $q1_start, $q1_end, $q2_start, $q2_end, $q3_start, $q3_end, $q4_start, $q4_end);
                 $response['response'] = "success";
                 $response['message'] = "Successfully added {$title}.";
                 $response['newid'] = $newid;

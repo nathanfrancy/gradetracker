@@ -19,19 +19,31 @@ $theme = $data->theme;
 $date_given = $data->date_given;
 $status = $data->status;
 
+// Variables for password resets
 $currentpassword = $data->currentpassword;
 $newpassword = $data->newpassword;
+
+// Variables for school year quarters
+$q1_start = $data->q1_start;
+$q1_end = $data->q1_end;
+$q2_start = $data->q2_start;
+$q2_end = $data->q2_end;
+$q3_start = $data->q3_start;
+$q3_end = $data->q3_end;
+$q4_start = $data->q4_start;
+$q4_end = $data->q4_end;
 
 
 // Check if a session auth_id is present. Must be logged in at the very least
 // to view any type of data in the system. Otherwise get an error.
 if (isset($_SESSION['auth_id'])) {
-    $auth_id = $_SESSION['auth_id'];
+	$auth_id = $_SESSION['auth_id'];
 
 	if ($rq == "editSchoolYear") {
 		$response = null;
-		$schoolyear = editSchoolYear($id, $title);
-		$response['message'] = "success";
+		$schoolyear = editSchoolYear($id, $title, $q1_start, $q1_end, $q2_start, $q2_end, $q3_start, $q3_end, $q4_start, $q4_end);
+		$response['response'] = "success";
+		$response['message'] = "Successfully edited {$title}.";
 	}
 	else if ($rq == "editStudent") {
 		$response = null;

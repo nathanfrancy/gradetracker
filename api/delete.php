@@ -12,7 +12,7 @@ if (isset($_GET['id'])) {
 }
 
 if (rq === "deleteSchoolYear") {
-    $response = deleteSchoolYear($id);
+    //$response = deleteSchoolYear($id);
 }
 
 

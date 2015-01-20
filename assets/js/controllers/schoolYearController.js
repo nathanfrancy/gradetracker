@@ -45,7 +45,7 @@ function ($scope, $window, $routeParams, schoolYearFactory, alertService) {
     $scope.schoolYearId = $routeParams.id;
 
     $scope.add = function() {
-        schoolYearFactory.addSchoolYear($scope.title)
+        schoolYearFactory.addSchoolYear($scope.schoolYear)
         .success(function (data) {
             alertService.alert("Successfully added the school year.", "success", 3);
             $window.location.href = '#/browse';
@@ -54,22 +54,25 @@ function ($scope, $window, $routeParams, schoolYearFactory, alertService) {
     }
 }]);
 
-dashboardApp.controller('SchoolYearEditCtrl', ['$scope', '$window', '$routeParams', 'schoolYearFactory', 
-function ($scope, $window, $routeParams, schoolYearFactory) {
+dashboardApp.controller('SchoolYearEditCtrl', ['$scope', '$window', '$routeParams', 'schoolYearFactory', 'alertService',
+function ($scope, $window, $routeParams, schoolYearFactory, alertService) {
     
     $scope.id = $routeParams.id;
     
     schoolYearFactory.getSchoolYear($scope.id)
         .success(function (data) {
-            $scope.title = data.title;
+            $scope.schoolYear = data;
         })
         .error(function (error) {});
 
     $scope.edit = function() {
-        schoolYearFactory.editSchoolYear($scope.id, $scope.title)
+        schoolYearFactory.editSchoolYear($scope.schoolYear)
         .success(function (data) {
-            $window.location.href = '#/browse';
+            $window.location.href = '#/browse/schoolyear/'+ $scope.schoolYear.id;
+            alertService.alert(data.message, "success", 3);
         })
-        .error(function (error) {});
+        .error(function (error) {
+            alertService.alert("Error: cannot update at this time.", "danger", 3);
+        });
     }
 }]);

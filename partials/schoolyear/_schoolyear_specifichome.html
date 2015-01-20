@@ -56,12 +56,41 @@
 			</div>
 		  	<div class="panel-body">
 		    	<table class="table table-hover">
-		    		<caption><a class="pull-left" href="#/browse/schoolyear/{{schoolyear.id}}/addquarter"><i class="fa fa-fw fa-plus-circle"></i> Add</a></caption>
+		    		<thead>
+		    			<tr>
+		    				<th>Quarter</th>
+		    				<th>Start</th>
+		    				<th>End</th>
+		    			</tr>
+		    		</thead>
 		    		<tbody>
-						<tr ng-repeat="quarter in quarters">
-							<td>{{ quarter.title }}</td>
+						<tr>
+							<td>1</td>
+							<td>{{schoolyear.q1_start}}</td>
+							<td>{{schoolyear.q1_end}}</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>{{schoolyear.q2_start}}</td>
+							<td>{{schoolyear.q2_end}}</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>{{schoolyear.q3_start}}</td>
+							<td>{{schoolyear.q3_end}}</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>{{schoolyear.q4_start}}</td>
+							<td>{{schoolyear.q4_end}}</td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								<a href="#/schoolyear/edit/{{schoolyear.id}}">Edit this information</a>
+							</td>
 						</tr>
 					</tbody>
+
 				</table>
 		  	</div>
 		</div>

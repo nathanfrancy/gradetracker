@@ -17,6 +17,14 @@ function getAllSchoolYears($user_id) {
         $schoolyear['id'] = $row['id'];
         $schoolyear['title'] = $row['title'];
         $schoolyear['num_students'] = $row['number_of_students'];
+        $schoolyear['q1_start'] = $row['q1_start'];
+        $schoolyear['q1_end'] = $row['q1_end'];
+        $schoolyear['q2_start'] = $row['q2_start'];
+        $schoolyear['q2_end'] = $row['q2_end'];
+        $schoolyear['q3_start'] = $row['q3_start'];
+        $schoolyear['q3_end'] = $row['q3_end'];
+        $schoolyear['q4_start'] = $row['q4_start'];
+        $schoolyear['q4_end'] = $row['q4_end'];
 		array_push($schoolyears, $schoolyear);
 	}
 	
@@ -41,18 +49,36 @@ function getSchoolYear($id) {
 		$schoolyear['id'] = $row['id'];
 		$schoolyear['title'] = $row['title'];
 		$schoolyear['user_id'] = $row['user_id'];
+		$schoolyear['q1_start'] = $row['q1_start'];
+        $schoolyear['q1_end'] = $row['q1_end'];
+        $schoolyear['q2_start'] = $row['q2_start'];
+        $schoolyear['q2_end'] = $row['q2_end'];
+        $schoolyear['q3_start'] = $row['q3_start'];
+        $schoolyear['q3_end'] = $row['q3_end'];
+        $schoolyear['q4_start'] = $row['q4_start'];
+        $schoolyear['q4_end'] = $row['q4_end'];
 	}
 	
 	mysqli_stmt_close($stmt);
 	return $schoolyear;
 }
 
-function addSchoolYear($title) {
+function addSchoolYear($title, $q1_start, $q1_end, $q2_start, $q2_end, $q3_start, $q3_end, $q4_start, $q4_end) {
     $link = connect_db();
-	$sql = "INSERT INTO  `schoolyear` (`title`, `user_id`) VALUES (?, ?)";
+	$sql = "INSERT INTO  `schoolyear` (`title`, `user_id`, `q1_start`, `q1_end`, `q2_start`, `q2_end`, `q3_start`, `q3_end`, `q4_start`, `q4_end`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
-	$stmt->bind_param('si', $link->real_escape_string($title), $_SESSION['auth_id']);
+	$stmt->bind_param('sissssssss', 
+		$link->real_escape_string($title), 
+		$_SESSION['auth_id'],
+		$link->real_escape_string($q1_start),
+		$link->real_escape_string($q1_end),
+		$link->real_escape_string($q2_start),
+		$link->real_escape_string($q2_end),
+		$link->real_escape_string($q3_start),
+		$link->real_escape_string($q3_end),
+		$link->real_escape_string($q4_start),
+		$link->real_escape_string($q4_end));
 	$stmt->execute();
 	$id = $link->insert_id;
 	mysqli_stmt_close($stmt);
@@ -61,14 +87,24 @@ function addSchoolYear($title) {
 	return $id;
 }
 
-function editSchoolYear($id, $title) {
+function editSchoolYear($id, $title, $q1_start, $q1_end, $q2_start, $q2_end, $q3_start, $q3_end, $q4_start, $q4_end) {
 	$link = connect_db();
-	$sql = "UPDATE  `schoolyear` SET `title`=? WHERE id = ?";
+	$sql = "UPDATE  `schoolyear` SET `title`=?, `q1_start`=?, `q1_end`=?, `q2_start`=?, `q2_end`=?, `q3_start`=?, `q3_end`=?, `q4_start`=?, `q4_end`=? WHERE id = ?";
 	
 	// Create prepared statement and bind parameters
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
-	$stmt->bind_param('si', $link->real_escape_string($title), $id);
+	$stmt->bind_param('sssssssssi', 
+		$link->real_escape_string($title),
+		$link->real_escape_string($q1_start),
+		$link->real_escape_string($q1_end),
+		$link->real_escape_string($q2_start),
+		$link->real_escape_string($q2_end),
+		$link->real_escape_string($q3_start),
+		$link->real_escape_string($q3_end),
+		$link->real_escape_string($q4_start),
+		$link->real_escape_string($q4_end),
+		$id);
 	
     // Execute the query, get the last inserted id
     $stmt->execute();

@@ -22,16 +22,39 @@ angular.module('dashboardApp').factory('schoolYearFactory', ['$http', function($
     dataFactory.getAllSchoolYears = function () {
         return $http.get('/api/get.php?rq=getAllSchoolYears');
     };
-    dataFactory.addSchoolYear = function (title) {
+    dataFactory.addSchoolYear = function (schoolYear) {
         return $http({ url: '/api/add.php', dataType: 'json', method: 'PUT',
-                    data: { rq: 'addSchoolYear', title: title }, headers: { "Content-Type": "application/json"}});
+                    data: { 
+                        rq: 'addSchoolYear', 
+                        title: schoolYear.title,
+                        q1_start: schoolYear.q1_start,
+                        q1_end: schoolYear.q1_end,
+                        q2_start: schoolYear.q2_start,
+                        q2_end: schoolYear.q2_end,
+                        q3_start: schoolYear.q3_start,
+                        q3_end: schoolYear.q3_end,
+                        q4_start: schoolYear.q4_start,
+                        q4_end: schoolYear.q4_end }, 
+                    headers: { "Content-Type": "application/json"}});
     };
     dataFactory.getSchoolYear = function (id) {
         return $http.get('/api/get.php?rq=getSchoolYear&id='+ id);
     };
-    dataFactory.editSchoolYear = function (id, title) {
+    dataFactory.editSchoolYear = function (schoolYear) {
         return $http({ url: '/api/edit.php', dataType: 'json', method: 'PUT',
-                    data: { rq: 'editSchoolYear', id: id, title: title }, headers: { "Content-Type": "application/json"}});
+                    data: { 
+                        rq: 'editSchoolYear', 
+                        id: schoolYear.id, 
+                        title: schoolYear.title, 
+                        q1_start: schoolYear.q1_start,
+                        q1_end: schoolYear.q1_end,
+                        q2_start: schoolYear.q2_start,
+                        q2_end: schoolYear.q2_end,
+                        q3_start: schoolYear.q3_start,
+                        q3_end: schoolYear.q3_end,
+                        q4_start: schoolYear.q4_start,
+                        q4_end: schoolYear.q4_end }, 
+                    headers: { "Content-Type": "application/json"}});
     };
 
     return dataFactory;
