@@ -23,11 +23,24 @@ if ($controllerType != null) {
 		$valid = isset($_POST['password']) && $_POST['password'] !== "";
 		
 		if ($valid) {
+
+			/* ======================================
+			Get the userid from validate() method
+				If the $userid is not 0, must be valid and issue
+				auth_id session variable to persist between pages
+			Also update a token which will be stored as a cookie
+				will not allow access if token doesn't match what is 
+				stored in the user table. Thus, must have logged in directly
+				to get this random token assigned to you.
+			==========================================================
+			*/
 			$userid = validate($username, $password);
 			
 			if ($userid != 0) {
 				$response['message'] = "valid";
 				$response['id'] = $userid;
+				$_SESSION['auth_id'] = $userid;
+				updateToken();
 			}
 			else {
 				$response['message'] = "Invalid username and/or password.";

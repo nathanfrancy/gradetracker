@@ -14,10 +14,6 @@ function validate($input_username, $input_password) {
     $stmt->bind_result($userid);
 	$stmt->fetch();
 	
-	if ($userid !== 0) {
-		$_SESSION['auth_id'] = $userid;
-	}
-	
 	mysqli_stmt_close($stmt);
 	return $userid;
 }
@@ -44,6 +40,24 @@ function checkPassword($try) {
 		return TRUE;
 	}
 	return FALSE;
+}
+
+function updateToken() {
+	// Check if auth_id and submitted id match. If so, go ahead and perform update
+	if (isset($_SESSION['auth_id'])) {
+		$new_token = generate_random_string(50);
+		$link = connect_db();
+		$sql = "UPDATE  `user` SET `token`=? WHERE id = ?";
+		
+		// Create prepared statement and bind parameters
+		$stmt = $link->stmt_init();
+		$stmt->prepare($sql);
+		$stmt->bind_param('si', $new_token, $_SESSION['auth_id']);
+	    $stmt->execute();
+		mysqli_stmt_close($stmt);
+		$link->close();
+		set_cookie('auth_token', $new_token);
+	}
 }
 
 function changePassword($oldpassword, $newpassword) {
@@ -84,6 +98,7 @@ function getUser($id) {
         $user['email'] = $row['email'];
         $user['username'] = $row['username'];
         $user['theme'] = $row['theme'];
+        $user['token'] = $row['token'];
 	}
 	
 	mysqli_stmt_close($stmt);
@@ -91,23 +106,26 @@ function getUser($id) {
 }
 
 function createNewUser($firstname, $lastname, $email, $username, $password) {
+    $first_token = generate_random_string(50);
     $link = connect_db();
-	$sql = "INSERT INTO  `user` (`firstname`, `lastname`, `email`, `username`, `password`) VALUES (?, ?, ?, ?, ?)";
+	$sql = "INSERT INTO  `user` (`firstname`, `lastname`, `email`, `username`, `password`, `theme`, `token`) VALUES (?, ?, ?, ?, ?, 'yeti', ?)";
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
-	$stmt->bind_param('sssss', 
+	$stmt->bind_param('ssssss', 
                       $link->real_escape_string($firstname), 
                       $link->real_escape_string($lastname), 
                       $link->real_escape_string($email), 
                       $link->real_escape_string($username),
-                      $link->real_escape_string(sha1($password)));
+                      $link->real_escape_string(sha1($password)),
+                      $first_token);
 	$stmt->execute();
 	$id = $link->insert_id;
 	mysqli_stmt_close($stmt);
 	$link->close();
-    
+
     if ($id !== 0) {
 		$_SESSION['auth_id'] = $id;
+		set_cookie('auth_token', $first_token);
 	}
 	
 	return $id;

@@ -6,11 +6,21 @@ if ( isset($_SESSION['auth_id']) && ($_SESSION['auth_id'] != 0) ) {
     require('data/master.php');
     $user = getUser($_SESSION['auth_id']);
 
-    // Get the user's theme, and make sure it is one of the default themes, if not resolve to "bootstrap" default template
-    // TODO: eventually fix the user's profile to be set back to default if something goes wrong
-    $bootswatch_whitelist = array("cerulean", "cosmo", "cyborg", "darkly","flatly", "journal", "lumen", "paper", "readable", "sandstone", "simplex", "slate", "spacelab", "superhero", "united", "yeti");
-    $theme = $user['theme'];
-    if (!in_array($theme, $bootswatch_whitelist)) { $theme = "bootstrap"; }
+    /* Cookie checking to make sure you are who you say you are. */
+    //setcookie("token", "Nathan", time() + (20 * 365 * 24 * 60 * 60), "/", NULL);
+    //$_COOKIE['username'] = "Nathan";
+    $token = $_COOKIE['auth_token'];
+    if ($token === $user['token']) {
+        // Ok
+        // Get the user's theme, and make sure it is one of the default themes, if not resolve to "bootstrap" default template
+        // TODO: eventually fix the user's profile to be set back to default if something goes wrong
+        $bootswatch_whitelist = array("cerulean", "cosmo", "cyborg", "darkly","flatly", "journal", "lumen", "paper", "readable", "sandstone", "simplex", "slate", "spacelab", "superhero", "united", "yeti");
+        $theme = $user['theme'];
+        if (!in_array($theme, $bootswatch_whitelist)) { $theme = "bootstrap"; }
+    }
+    else {
+        header("Location: logout.php");
+    }
 }
 else {
     header("Location: index.php");

@@ -34,6 +34,8 @@ if ($controllerType != null) {
 			if ($userid != 0) {
 				$response['message'] = "valid";
 				$response['id'] = $userid;
+				$_SESSION['auth_id'] = $userid;
+				updateToken();
 			}
 			else {
 				$response['message'] = "Invalid username and/or password.";
