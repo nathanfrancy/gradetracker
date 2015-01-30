@@ -5,8 +5,8 @@ $user = null;
 if ( isset($_SESSION['auth_id']) && ($_SESSION['auth_id'] != 0) ) {
     require('data/master.php');
     $user = getUser($_SESSION['auth_id']);
-    if ($user['type'] === "admin") {
-        header("Location: dashboard-admin.php");
+    if ($user['type'] !== "admin") {
+        header("Location: dashboard.php");
     }
 
     /* Cookie checking to make sure you are who you say you are. */
@@ -39,7 +39,7 @@ else {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>Admin Dashboard</title>
 
     <!-- Bootstrap Core CSS -->
     <link id="boots_theme" href="assets/vendor/css/bootswatch/<?php echo $theme; ?>.css" rel="stylesheet">
@@ -60,18 +60,14 @@ else {
     <script src="assets/vendor/js/angular-ui-bootstrap.min.js"></script>
     
     <!-- Angular custom app -->
-    <script src="assets/js/dashboardApp.js"></script>
+    <script src="assets/js/dashboardAdminApp.js"></script>
 
     <!-- Angular custom services -->
     <script src="assets/js/services.js"></script>
     
     <!-- Angular custom controllers -->
-    <script src="assets/js/controllers/accountController.js"></script>
-    <script src="assets/js/controllers/dashboardController.js"></script>
-    <script src="assets/js/controllers/schoolYearController.js"></script>
-    <script src="assets/js/controllers/studentController.js"></script>
-    <script src="assets/js/controllers/standardController.js"></script>
-    
+    <script src="assets/js/controllers/accountAdminController.js"></script>
+
     <!-- Angular custom plugins -->
     <script src="assets/js/plugins/datepicker.js"></script>
     
@@ -80,12 +76,13 @@ else {
 <body>
     
     <!-- Navbar -->
-    <?php require('partials/navbar.php'); ?>
+    <?php require('partials/navbar-admin.php'); ?>
     
     <!-- Wrapper for the views -->
     <div id="wrapper" class="container-fluid">
         <div id="page-wrapper">
             <div class="container-fluid">
+                <h1>Welcome back, admin!</h1>
                 <div ng-view></div>
             </div>
         </div>

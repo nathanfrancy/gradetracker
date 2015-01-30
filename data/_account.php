@@ -99,6 +99,7 @@ function getUser($id) {
         $user['username'] = $row['username'];
         $user['theme'] = $row['theme'];
         $user['token'] = $row['token'];
+        $user['type'] = $row['type'];
 	}
 	
 	mysqli_stmt_close($stmt);
