@@ -45,6 +45,19 @@ dashboardApp.controller('AdminUserCtrl', ['$scope', '$routeParams', 'accountFact
     accountFactory.getUserById($scope.id)
         .success(function (data) {
             $scope.user = data;
+
+            accountFactory.getLoginRecordsForAccount($scope.user.id)
+                .success(function (data2) {
+                    $scope.logs = data2;
+
+                    // Parse the date/times
+                    for (var i = 0; i < $scope.logs.length; i++) {
+                        $scope.logs[i].date_tried = Date.parse($scope.logs[i].date_tried);
+                    }
+                })
+                .error(function (error) {
+                    alertService.alert("Couldn't load login records.", "danger", 3);
+                });
         })
         .error(function (error) {
             alertService.alert("Couldn't load user.", "danger", 3);

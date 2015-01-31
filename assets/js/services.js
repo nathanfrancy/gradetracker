@@ -18,6 +18,9 @@ angular.module('dashboardApp').factory('accountFactory', ['$http', function($htt
     dataFactory.getAllUsers = function() {
         return $http.get('/api/get.php?rq=getAllUsers');
     }
+    dataFactory.getLoginRecordsForAccount = function(id) {
+        return $http.get('/api/get.php?rq=getLoginRecordsForAccount&id='+id);
+    }
 
     return dataFactory;
 }]);

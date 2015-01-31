@@ -241,4 +241,40 @@ function insertLoginAttempt($outcome, $user_id, $tried_username) {
 	$link->close();
 }
 
+function getLoginRecordsForAccount($id) {
+    $logs = array();
+    $user = getUser($id);
+	
+	// Connect and initialize sql and prepared statement template
+	$link = connect_db();
+	$sql = "SELECT * from `login_attempt` WHERE `user_id` = ? OR `username_tried` = ? ORDER BY `date_tried` desc";
+	$stmt = $link->stmt_init();
+	$stmt->prepare($sql);
+    $stmt->bind_param('is', $id, $user['username']);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	
+	// Bind result to Book object and push each one on the end of $books array
+    while ($row = $result->fetch_array(MYSQLI_BOTH)) {
+        $log['id'] = $row['id'];
+        $log['date_tried'] = $row['date_tried'];
+        $log['username_tried'] = $row['username_tried'];
+        $log['ip_address_remote'] = $row['ip_address_remote'];
+        $log['ip_address_forwarded'] = $row['ip_address_forwarded'];
+        $log['outcome'] = $row['outcome'];
+        $log['user_id'] = $row['user_id'];
+
+        array_push($logs, $log);
+	}
+	
+	mysqli_stmt_close($stmt);
+	return $logs;
+}
+
+
+
+
+
+
+
 ?>

@@ -61,9 +61,11 @@ if (isset($_SESSION['auth_id'])) {
             $user = getUser($id);
             $response = $user;
         }
-
         else if ($rq === "getAllUsers") {
             $response = getAllUsers();
+        }
+        else if ($rq === "getLoginRecordsForAccount") {
+            $response = getLoginRecordsForAccount($id);
         }
 
         else {
