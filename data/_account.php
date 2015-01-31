@@ -181,8 +181,62 @@ function getOwnerOfSchoolYear($standard) {
 	}
 	
 	mysqli_stmt_close($stmt);
-    
     return $owner_id;
+}
+
+function getAllUsersSortedByType() {
+	$response = null;
+    $users = array();
+	
+	// Connect and initialize sql and prepared statement template
+	$link = connect_db();
+	$sql = "SELECT * from `user`";
+	$stmt = $link->stmt_init();
+	$stmt->prepare($sql);
+    //$stmt->bind_param('ii', $standard_id, $schoolyear_id);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	
+	// Bind result to Book object and push each one on the end of $books array
+    while ($row = $result->fetch_array(MYSQLI_BOTH)) {
+        $user['id'] = $row['id'];
+		$user['firstname'] = $row['firstname'];
+        $user['lastname'] = $row['lastname'];
+        $user['email'] = $row['email'];
+        $user['username'] = $row['username'];
+        $user['theme'] = $row['theme'];
+        $user['type'] = $row['type'];
+
+        array_push($users, $user);
+	}
+	$response = $users;
+	
+	mysqli_stmt_close($stmt);
+	return $response;
+}
+
+function insertLoginAttempt($outcome, $user_id, $tried_username) {
+    $date_tried = date("Y-m-j H:i:s");
+    $ip_remote = $_SERVER['REMOTE_ADDR'];
+    $ip_forwarded = "not provided";
+    if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) { 
+    	$ip_forwarded = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }
+    $link = connect_db();
+	$sql = "INSERT INTO  `login_attempt` (`date_tried`, `outcome`, `username_tried`, `ip_address_forwarded`, `ip_address_remote`, `user_id`) VALUES (?,?,?,?,?,?)";
+	$stmt = $link->stmt_init();
+	$stmt->prepare($sql);
+	$stmt->bind_param('sssssi', 
+					  $date_tried,
+					  $link->real_escape_string($outcome),
+					  $link->real_escape_string($tried_username),
+					  $ip_forwarded,
+					  $ip_remote,
+                      $user_id);
+	$stmt->execute();
+	$id = $link->insert_id;
+	mysqli_stmt_close($stmt);
+	$link->close();
 }
 
 ?>

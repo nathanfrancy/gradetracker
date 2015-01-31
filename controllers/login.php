@@ -39,10 +39,12 @@ if ($controllerType != null) {
 			if ($userid != 0) {
 				$response['message'] = "valid";
 				$response['id'] = $userid;
+				insertLoginAttempt("success", $userid, $username);
 				$_SESSION['auth_id'] = $userid;
 				updateToken();
 			}
 			else {
+				insertLoginAttempt("fail", 100, $username);
 				$response['message'] = "Invalid username and/or password.";
 				$response['id'] = 0;
 			}

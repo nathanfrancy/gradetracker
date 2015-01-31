@@ -4,7 +4,12 @@ dashboardApp.config(function($routeProvider) {
 $routeProvider
     .when('/',
         {
-          redirectTo: '/'
+          redirectTo: '/home'
+        })
+    .when('/home', 
+        {
+            controller: 'AdminUsersCtrl',
+            templateUrl: 'partials/account/admin_users.html'
         })
     .when('/profile',
         {

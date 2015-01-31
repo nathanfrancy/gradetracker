@@ -57,6 +57,11 @@ if (isset($_SESSION['auth_id'])) {
             $user = getUser($_SESSION['auth_id']);
             $response = $user;
         }
+
+        else if ($rq === "getAllUsersSortedByType") {
+            $response = getAllUsersSortedByType();
+        }
+
         else {
             $response['response'] = "fail";
             $response['message'] = "Request type not valid.";

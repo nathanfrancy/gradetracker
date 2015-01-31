@@ -12,6 +12,9 @@ angular.module('dashboardApp').factory('accountFactory', ['$http', function($htt
         return $http({ url: '/api/edit.php', dataType: 'json', method: 'PUT',
                     data: { rq: 'userPasswordReset', currentpassword: user.currentpassword, newpassword: user.newpassword_1 }, headers: { "Content-Type": "application/json"}});
     };
+    dataFactory.getAllUsersSortedByType = function() {
+        return $http.get('/api/get.php?rq=getAllUsersSortedByType');
+    }
 
     return dataFactory;
 }]);

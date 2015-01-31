@@ -10,6 +10,25 @@ dashboardApp.controller('AccountHomeCtrl', ['$scope', 'accountFactory', 'alertSe
         });
 }]);
 
+dashboardApp.controller('AdminUsersCtrl', ['$scope', 'accountFactory', 'alertService', function ($scope, accountFactory, alertService) {
+    
+    accountFactory.getUser()
+        .success(function (data) {
+            $scope.user = data;
+
+            accountFactory.getAllUsersSortedByType()
+                .success(function (data) {
+                    $scope.users = data;
+                })
+                .error(function (error) {
+                    alertService.alert("Couldn't load users.", "danger", 3);
+                });
+        })
+        .error(function (error) {
+            alertService.alert("Couldn't load user.", "danger", 3);
+        });
+}]);
+
 
 /* partials/account/profile_edit.html */
 dashboardApp.controller('AccountEditCtrl', ['$scope', '$window', 'accountFactory', 'alertService', 

@@ -82,7 +82,6 @@ else {
     <div id="wrapper" class="container-fluid">
         <div id="page-wrapper">
             <div class="container-fluid">
-                <h1>Welcome back, admin!</h1>
                 <div ng-view></div>
             </div>
         </div>
