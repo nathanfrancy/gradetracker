@@ -4,6 +4,9 @@ angular.module('dashboardApp').factory('accountFactory', ['$http', function($htt
     dataFactory.getUser = function () {
         return $http.get('/api/get.php?rq=getUser');
     };
+    dataFactory.getUserById = function (id) {
+        return $http.get('/api/get.php?rq=getUserById&id='+id);
+    };
     dataFactory.editUser = function (user) {
         return $http({ url: '/api/edit.php', dataType: 'json', method: 'PUT',
                     data: { rq: 'editUser', id: user.id, firstname: user.firstname, lastname: user.lastname, email: user.email, username: user.username, theme: user.theme }, headers: { "Content-Type": "application/json"}});
@@ -12,8 +15,8 @@ angular.module('dashboardApp').factory('accountFactory', ['$http', function($htt
         return $http({ url: '/api/edit.php', dataType: 'json', method: 'PUT',
                     data: { rq: 'userPasswordReset', currentpassword: user.currentpassword, newpassword: user.newpassword_1 }, headers: { "Content-Type": "application/json"}});
     };
-    dataFactory.getAllUsersSortedByType = function() {
-        return $http.get('/api/get.php?rq=getAllUsersSortedByType');
+    dataFactory.getAllUsers = function() {
+        return $http.get('/api/get.php?rq=getAllUsers');
     }
 
     return dataFactory;

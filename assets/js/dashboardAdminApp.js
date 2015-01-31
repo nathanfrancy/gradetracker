@@ -11,6 +11,11 @@ $routeProvider
             controller: 'AdminUsersCtrl',
             templateUrl: 'partials/account/admin_users.html'
         })
+    .when('/user/:id', 
+        {
+            controller: 'AdminUserCtrl',
+            templateUrl: 'partials/account/admin_user.html'
+        })
     .when('/profile',
         {
           controller: 'AccountHomeCtrl',

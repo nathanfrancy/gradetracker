@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#/home">Gradetracker - Admin Dashboard</a>
+            <a class="navbar-brand" href="#/home"><span class="glyphicon glyphicon-home"></span> Admin Dashboard</a>
         </div>
         <div class="collapse navbar-collapse" collapse="navbarCollapsed">
             <ul class="nav navbar-nav">

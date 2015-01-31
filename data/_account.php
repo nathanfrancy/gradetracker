@@ -100,6 +100,7 @@ function getUser($id) {
         $user['theme'] = $row['theme'];
         $user['token'] = $row['token'];
         $user['type'] = $row['type'];
+        $user['status'] = $row['status'];
 	}
 	
 	mysqli_stmt_close($stmt);
@@ -109,7 +110,7 @@ function getUser($id) {
 function createNewUser($firstname, $lastname, $email, $username, $password) {
     $first_token = generate_random_string(50);
     $link = connect_db();
-	$sql = "INSERT INTO  `user` (`firstname`, `lastname`, `email`, `username`, `password`, `theme`, `token`) VALUES (?, ?, ?, ?, ?, 'yeti', ?)";
+	$sql = "INSERT INTO  `user` (`firstname`, `lastname`, `email`, `username`, `password`, `theme`, `token`, `type`, `status`) VALUES (?, ?, ?, ?, ?, 'yeti', ?, 'regular', 'enabled')";
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
 	$stmt->bind_param('ssssss', 
@@ -184,7 +185,7 @@ function getOwnerOfSchoolYear($standard) {
     return $owner_id;
 }
 
-function getAllUsersSortedByType() {
+function getAllUsers() {
 	$response = null;
     $users = array();
 	
@@ -206,6 +207,7 @@ function getAllUsersSortedByType() {
         $user['username'] = $row['username'];
         $user['theme'] = $row['theme'];
         $user['type'] = $row['type'];
+        $user['status'] = $row['status'];
 
         array_push($users, $user);
 	}

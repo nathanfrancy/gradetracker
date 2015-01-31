@@ -16,7 +16,7 @@ dashboardApp.controller('AdminUsersCtrl', ['$scope', 'accountFactory', 'alertSer
         .success(function (data) {
             $scope.user = data;
 
-            accountFactory.getAllUsersSortedByType()
+            accountFactory.getAllUsers()
                 .success(function (data) {
                     $scope.users = data;
                 })
@@ -27,6 +27,29 @@ dashboardApp.controller('AdminUsersCtrl', ['$scope', 'accountFactory', 'alertSer
         .error(function (error) {
             alertService.alert("Couldn't load user.", "danger", 3);
         });
+
+    $scope.refreshUsers = function() {
+        accountFactory.getAllUsers()
+            .success(function (data) {
+                $scope.users = data;
+            })
+            .error(function (error) {
+                alertService.alert("Couldn't load users.", "danger", 3);
+            });
+    }
+}]);
+
+dashboardApp.controller('AdminUserCtrl', ['$scope', '$routeParams', 'accountFactory', 'alertService', function ($scope, $routeParams, accountFactory, alertService) {
+    $scope.id = $routeParams.id;
+
+    accountFactory.getUserById($scope.id)
+        .success(function (data) {
+            $scope.user = data;
+        })
+        .error(function (error) {
+            alertService.alert("Couldn't load user.", "danger", 3);
+        });
+
 }]);
 
 

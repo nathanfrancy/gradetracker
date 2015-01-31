@@ -57,9 +57,13 @@ if (isset($_SESSION['auth_id'])) {
             $user = getUser($_SESSION['auth_id']);
             $response = $user;
         }
+        else if ($rq === "getUserById") {
+            $user = getUser($id);
+            $response = $user;
+        }
 
-        else if ($rq === "getAllUsersSortedByType") {
-            $response = getAllUsersSortedByType();
+        else if ($rq === "getAllUsers") {
+            $response = getAllUsers();
         }
 
         else {

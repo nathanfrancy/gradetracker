@@ -44,7 +44,7 @@ if ($controllerType != null) {
 				updateToken();
 			}
 			else {
-				insertLoginAttempt("fail", 100, $username);
+				insertLoginAttempt("fail", 1, $username);
 				$response['message'] = "Invalid username and/or password.";
 				$response['id'] = 0;
 			}
