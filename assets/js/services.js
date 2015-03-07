@@ -140,6 +140,10 @@ angular.module('dashboardApp').factory('gradeFactory', ['$http', function($http)
 angular.module('dashboardApp').factory('subjectFactory', ['$http', function($http) {
     var dataFactory = {};
 
+    dataFactory.addSubject = function (subject, schoolyear) {
+        return $http({ url: '/api/add.php', dataType: 'json', method: 'PUT',
+                    data: { rq: 'addSubject', title: subject.title, schoolyear_id: schoolyear.id }, headers: { "Content-Type": "application/json"}});
+    };
     dataFactory.getSubjectsFromSchoolYear = function (schoolyear_id) {
         return $http.get('/api/get.php?rq=getSubjectsFromSchoolYear&id=' + schoolyear_id);
     };

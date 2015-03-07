@@ -81,6 +81,19 @@ if (isset($_SESSION['auth_id'])) {
             }
         }
 
+        else if ($rq === "addSubject") {
+            if ($title !== null) {
+                $newid = addSubjectToSchoolYear($title, $schoolyear_id);
+                $response['response'] = "success";
+                $response['message'] = "Successfully added {$title}.";
+                $response['newid'] = $newid;
+            }
+            else {
+                $response['response'] = "fail";
+                $response['message'] = "Title and date given are required.";
+            }
+        }
+
         else if ($rq === "recordStandardGrades") {
             
             if ($students !== null) {

@@ -24,5 +24,19 @@ function getSubjectsFromSchoolYear($schoolyear_id) {
 	return $subjects;
 }
 
+function addSubjectToSchoolYear($title, $schoolyear_id) {
+	$link = connect_db();
+	$sql = "INSERT INTO  `subject` (`title`, `schoolyear_id`) VALUES (?, ?)";
+	$stmt = $link->stmt_init();
+	$stmt->prepare($sql);
+	$stmt->bind_param('si', $link->real_escape_string($title), $schoolyear_id);
+	$stmt->execute();
+	$id = $link->insert_id;
+	mysqli_stmt_close($stmt);
+	$link->close();
+	
+	return $id;
+}
+
 
 ?>

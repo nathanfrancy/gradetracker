@@ -10,8 +10,8 @@ function ($scope, schoolYearFactory, alertService) {
         });
 }]);
 
-dashboardApp.controller('SchoolYearSpecificHomeCtrl', ['$scope', '$routeParams', 'schoolYearFactory', 'studentFactory', 'standardFactory', 
-function ($scope, $routeParams, schoolYearFactory, studentFactory, standardFactory) {
+dashboardApp.controller('SchoolYearSpecificHomeCtrl', ['$scope', '$routeParams', 'schoolYearFactory', 'studentFactory', 'standardFactory', 'subjectFactory',
+function ($scope, $routeParams, schoolYearFactory, studentFactory, standardFactory, subjectFactory) {
 
     $scope.id = $routeParams.id;
 
@@ -39,6 +39,14 @@ function ($scope, $routeParams, schoolYearFactory, studentFactory, standardFacto
         })
         .error(function (error) {
             alertService.alert("Error loading students for this school year.", "danger", 3);
+        });
+
+    subjectFactory.getSubjectsFromSchoolYear($scope.id)
+        .success(function (data) {
+            $scope.subjects = data;
+        })
+        .error(function (error) {
+            alertService.alert("Error loading subjects for this school year.", "danger", 3);
         });
 }]);
 
