@@ -39,8 +39,10 @@ dashboardApp.controller('AdminUsersCtrl', ['$scope', 'accountFactory', 'alertSer
     }
 }]);
 
-dashboardApp.controller('AdminUserCtrl', ['$scope', '$routeParams', 'accountFactory', 'alertService', function ($scope, $routeParams, accountFactory, alertService) {
+dashboardApp.controller('AdminUserCtrl', ['$scope', '$routeParams', '$window', 'accountFactory', 'alertService', function ($scope, $routeParams, $window, accountFactory, alertService) {
     $scope.id = $routeParams.id;
+
+    $scope.bootswatch_themes = bootswatch;
 
     accountFactory.getUserById($scope.id)
         .success(function (data) {
@@ -63,6 +65,17 @@ dashboardApp.controller('AdminUserCtrl', ['$scope', '$routeParams', 'accountFact
             alertService.alert("Couldn't load user.", "danger", 3);
         });
 
+    $scope.editUser = function() {
+        // Service call to save the user
+        accountFactory.editUser($scope.user)
+        .success(function (data) {
+            alertService.alert(data.message, data.response, 3);
+        })
+        .error(function (error) {
+            alertService.alert("Couldn't save user.", "danger", 3);
+        });
+    }
+
 }]);
 
 
@@ -70,9 +83,7 @@ dashboardApp.controller('AdminUserCtrl', ['$scope', '$routeParams', 'accountFact
 dashboardApp.controller('AccountEditCtrl', ['$scope', '$window', 'accountFactory', 'alertService', 
     function ($scope, $window, accountFactory, alertService) {
 	
-    $scope.bootswatch_themes = [
-		"cerulean", "cosmo", "cyborg", "darkly","flatly", "journal", "lumen", "paper", "readable", "sandstone", "simplex", "slate", "spacelab", "superhero", "united", "yeti"
-	];
+    $scope.bootswatch_themes = bootswatch;
 
 	accountFactory.getUser()
         .success(function (data) {

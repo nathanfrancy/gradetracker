@@ -38,6 +38,7 @@ $q4_end = $data->q4_end;
 // to view any type of data in the system. Otherwise get an error.
 if (isset($_SESSION['auth_id'])) {
 	$auth_id = $_SESSION['auth_id'];
+	$user = getUser($auth_id);
 
 	if ($rq == "editSchoolYear") {
 		$response = null;
@@ -58,14 +59,14 @@ if (isset($_SESSION['auth_id'])) {
 	else if ($rq == "editUser") {
 		$response = null;
 
-		// Check if auth_id and posted id match
-		if ($auth_id === $id) {
+		// Check if auth_id and posted id match OR if the user is an administrator
+		if ($auth_id === $id || $user['type'] === "admin") {
 			$response['response'] = "success";
 			$response['message'] = editUser($id, $firstname, $lastname, $email, $username, $theme);
 		}
 		else {
-			$response['response'] = "fail";
-			$response['message'] = "Something fishy is going on here.";
+			$response['response'] = "danger";
+			$response['message'] = "You are not able to edit this user account.";
 		}
 	}
 	else if ($rq == "userPasswordReset") {
@@ -73,12 +74,12 @@ if (isset($_SESSION['auth_id'])) {
 		$response['response'] = changePassword($currentpassword, $newpassword);
 	}
 	else {
-		$response['response'] = "fail";
+		$response['response'] = "danger";
 		$response['message'] = "Request type is invalid.";
 	}
 }
 else {
-	$response['response'] = "fail";
+	$response['response'] = "danger";
 	$response['message'] = "You cannot perform this operation.";
 }
 

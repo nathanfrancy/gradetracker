@@ -1,7 +1,5 @@
 /* partials/account/profile_home.html */
 dashboardApp.controller('AccountHomeCtrl', ['$scope', 'accountFactory', 'alertService', function ($scope, accountFactory, alertService) {
-	
-
 	accountFactory.getUser()
         .success(function (data) {
             $scope.user = data;
@@ -16,9 +14,7 @@ dashboardApp.controller('AccountHomeCtrl', ['$scope', 'accountFactory', 'alertSe
 dashboardApp.controller('AccountEditCtrl', ['$scope', '$window', 'accountFactory', 'alertService', 
     function ($scope, $window, accountFactory, alertService) {
 	
-    $scope.bootswatch_themes = [
-		"cerulean", "cosmo", "cyborg", "darkly","flatly", "journal", "lumen", "paper", "readable", "sandstone", "simplex", "slate", "spacelab", "superhero", "united", "yeti"
-	];
+    $scope.bootswatch_themes = bootswatch;
 
 	accountFactory.getUser()
         .success(function (data) {
