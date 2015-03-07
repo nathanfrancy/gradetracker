@@ -70,7 +70,7 @@ if (isset($_SESSION['auth_id'])) {
 
         else if ($rq === "addStandard") {
             if ($title !== null && $date_given !== null) {
-                $newid = addStandard($title, $description, $date_given, $schoolyear_id);
+                $newid = addStandard($title, $description, $date_given, $schoolyear_id, $subject_id);
                 $response['response'] = "success";
                 $response['message'] = "Successfully added {$title}.";
                 $response['newid'] = $newid;

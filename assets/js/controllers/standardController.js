@@ -1,5 +1,5 @@
-dashboardApp.controller('StandardAddCtrl', ['$scope', '$window', '$routeParams', 'standardFactory', 'studentFactory', 'schoolYearFactory', 'alertService',
-function ($scope, $window, $routeParams, standardFactory, studentFactory, schoolYearFactory, alertService) {
+dashboardApp.controller('StandardAddCtrl', ['$scope', '$window', '$routeParams', 'standardFactory', 'studentFactory', 'schoolYearFactory', 'subjectFactory', 'alertService',
+function ($scope, $window, $routeParams, standardFactory, studentFactory, schoolYearFactory, subjectFactory, alertService) {
     
     schoolYearFactory.getSchoolYear($routeParams.schoolYearId)
         .success(function (data) {
@@ -9,10 +9,20 @@ function ($scope, $window, $routeParams, standardFactory, studentFactory, school
             alertService.alert("Error loading the school year.", "danger", 3);
         });
 
+    subjectFactory.getSubjectsFromSchoolYear($routeParams.schoolYearId)
+        .success(function (data) {
+            console.log(data);
+            $scope.possiblesubjects = data;
+        })
+        .error(function (error) {
+            alertService.alert("Error loading the subjects for this school year.", "danger", 3);
+        });
+
     $scope.add = function() {
         var temp = new Date($scope.standard.date_given);
+        console.log($scope.subject);
         $scope.standard.date_given =  temp.getFullYear() + "-" + (temp.getMonth()+1) + "-" + temp.getDate();
-        standardFactory.addStandard($scope.standard, $scope.schoolyear)
+        standardFactory.addStandard($scope.standard, $scope.schoolyear, $scope.subject)
         .success(function (data) {
             alertService.alert("Successfully added "+ $scope.standard.title +".", "success", 3);
             $window.location.href = '#/browse/schoolyear/' + $scope.schoolyear.id;

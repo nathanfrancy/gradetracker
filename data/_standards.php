@@ -5,10 +5,11 @@ function getStandardsFromSchoolYear($schoolyear_id) {
 	
 	// Connect and initialize sql and prepared statement template
 	$link = connect_db();
-	$sql = "SELECT *
-FROM `standard` 
-WHERE `schoolyear_id` = ?
-ORDER BY `date_given`";
+	$sql = "SELECT *, `subject`.`title` as `subjecttitle`, `standard`.`id` as `standardid`, `standard`.`title` as `standardtitle`
+FROM `standard`, `subject` 
+WHERE `standard`.`schoolyear_id` = ?
+AND `standard`.`subject_id` = `subject`.`id`
+ORDER BY `standard`.`date_given`";
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
     $stmt->bind_param('i', $schoolyear_id);
@@ -17,11 +18,13 @@ ORDER BY `date_given`";
 	
 	// Bind result to Book object and push each one on the end of $books array
     while ($row = $result->fetch_array(MYSQLI_BOTH)) {
-        $standard['id'] = $row['id'];
-        $standard['title'] = $row['title'];
+        $standard['id'] = $row['standardid'];
+        $standard['title'] = $row['standardtitle'];
         $standard['description'] = $row['description'];
         $standard['date_given'] = $row['date_given'];
         $standard['schoolyear_id'] = $row['schoolyear_id'];
+        $standard['subject_id'] = $row['subject_id'];
+        $standard['subject_title'] = $row['subjecttitle'];
 		array_push($standards, $standard);
 	}
 	
@@ -54,12 +57,12 @@ function getStandard($id) {
 	return $standard;
 }
 
-function addStandard($title, $description, $date_given, $schoolyear_id) {
+function addStandard($title, $description, $date_given, $schoolyear_id, $subject_id) {
     $link = connect_db();
-	$sql = "INSERT INTO  `standard` (`title`, `description`, `date_given`, `schoolyear_id`) VALUES (?, ?, ?, ?)";
+	$sql = "INSERT INTO  `standard` (`title`, `description`, `date_given`, `schoolyear_id`, `subject_id`) VALUES (?, ?, ?, ?, ?)";
 	$stmt = $link->stmt_init();
 	$stmt->prepare($sql);
-	$stmt->bind_param('sssi', $link->real_escape_string($title), $link->real_escape_string($description), $link->real_escape_string($date_given), $schoolyear_id);
+	$stmt->bind_param('sssii', $link->real_escape_string($title), $link->real_escape_string($description), $link->real_escape_string($date_given), $schoolyear_id, $subject_id);
 	$stmt->execute();
 	$id = $link->insert_id;
 	mysqli_stmt_close($stmt);

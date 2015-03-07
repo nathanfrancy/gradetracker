@@ -67,6 +67,9 @@ if (isset($_SESSION['auth_id'])) {
         else if ($rq === "getLoginRecordsForAccount") {
             $response = getLoginRecordsForAccount($id);
         }
+        else if ($rq === "getSubjectsFromSchoolYear") {
+            $response = getSubjectsFromSchoolYear($id);
+        }
 
         else {
             $response['response'] = "fail";
