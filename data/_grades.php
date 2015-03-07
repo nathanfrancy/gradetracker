@@ -55,6 +55,7 @@ WHERE s.`schoolyear_id` = ? AND s.`status` = 'enabled'";
 
 function printStandardScores($schoolyear_id) {
     $standards = getStandardsFromSchoolYear($schoolyear_id);
+    $subjects = getSubjectsFromSchoolYear($schoolyear_id);
     
     if (isset($_SESSION['auth_id'])) {
     
@@ -62,39 +63,54 @@ function printStandardScores($schoolyear_id) {
             $ownerid = getOwnerOfSchoolYear($standards[0]);
 
             if ($ownerid == $_SESSION['auth_id']) {
-                foreach ($standards as $standard) {
-                    echo "<h1>{$standard['title']}<br><small>{$standard['date_given']}</small></h1>";
-                    $scores = getStudentsWithStandardGrades($standard['schoolyear_id'], $standard['id']);
-                    echo "<table class='table table-bordered'>";
-                    echo "<thead><tr><th>Student</th><th>Score</th><th>Date Recorded</th></tr></thead>";
-                    foreach ($scores as $score) {
-                        if ($score['rating'] !== 'm') {
-                            if ($score['rating'] == 'nm') {
-                                echo "<tr class='bg-danger'>";
-                                echo "<td>{$score['lastname']}, {$score['firstname']}</td>";
-                                echo "<td>Not Mastered</td>";
-                                echo "<td>{$score['date_updated']}</td>";
-                                echo "</tr>";
-                            }
-                            else if ($score['rating'] == 'p') {
-                                echo "<tr class='bg-warning'>";
-                                echo "<td>{$score['lastname']}, {$score['firstname']}</td>";
-                                echo "<td>Progressing</td>";
-                                echo "<td>{$score['date_updated']}</td>";
-                                echo "</tr>";
-                            }
-                            else if ( ($score['rating'] !== 'p') && ($score['rating'] !== 'nm') && ($score['rating'] !== 'm') ) {
-                                echo "<tr class='bg-info'>";
-                                echo "<td>{$score['lastname']}, {$score['firstname']}</td>";
-                                echo "<td>No score recorded or invalid grade.</td>";
-                                echo "<td>{$score['date_updated']}</td>";
-                                echo "</tr>";
-                            }
-                        }
 
+                foreach ($subjects as $subject) {
+                    $count = 0;
+                    echo "<h1>{$subject['title']}</h1>";
+
+                    foreach ($standards as $standard) {
+                        if ($standard['subject_id'] == $subject['id']) {
+                            $count++;
+                            echo "<h3>{$standard['title']}<br><small>{$standard['date_given']}</small></h3>";
+                            $scores = getStudentsWithStandardGrades($standard['schoolyear_id'], $standard['id']);
+                            echo "<table class='table table-bordered'>";
+                            echo "<thead><tr><th>Student</th><th>Score</th><th>Date Recorded</th></tr></thead>";
+                            foreach ($scores as $score) {
+                                if ($score['rating'] !== 'm') {
+                                    if ($score['rating'] == 'nm') {
+                                        echo "<tr class='bg-danger'>";
+                                        echo "<td>{$score['lastname']}, {$score['firstname']}</td>";
+                                        echo "<td>Not Mastered</td>";
+                                        echo "<td>{$score['date_updated']}</td>";
+                                        echo "</tr>";
+                                    }
+                                    else if ($score['rating'] == 'p') {
+                                        echo "<tr class='bg-warning'>";
+                                        echo "<td>{$score['lastname']}, {$score['firstname']}</td>";
+                                        echo "<td>Progressing</td>";
+                                        echo "<td>{$score['date_updated']}</td>";
+                                        echo "</tr>";
+                                    }
+                                    else if ( ($score['rating'] !== 'p') && ($score['rating'] !== 'nm') && ($score['rating'] !== 'm') ) {
+                                        echo "<tr class='bg-info'>";
+                                        echo "<td>{$score['lastname']}, {$score['firstname']}</td>";
+                                        echo "<td>No score recorded or invalid grade.</td>";
+                                        echo "<td>{$score['date_updated']}</td>";
+                                        echo "</tr>";
+                                    }
+                                }
+                            }
+                            echo "</table>";
+                        }
+                        
                     }
-                    echo "</table>";
+                    if ($count == 0) {
+                        echo "<h3><small>No standards found.</small></h3>";
+                    }
+                    echo "<hr />";
                 }
+
+                
             }
             else {
                 echo "Oops, looks like this data isn't yours!";
