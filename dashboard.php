@@ -71,6 +71,7 @@ else {
     <script src="assets/js/controllers/schoolYearController.js"></script>
     <script src="assets/js/controllers/studentController.js"></script>
     <script src="assets/js/controllers/standardController.js"></script>
+    <script src="assets/js/controllers/subjectController.js"></script>
     
     <!-- Angular custom plugins -->
     <script src="assets/js/plugins/datepicker.js"></script>

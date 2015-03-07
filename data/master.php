@@ -26,6 +26,7 @@ require_once('_schoolyears.php');
 require_once('_students.php');
 require_once('_standards.php');
 require_once('_grades.php');
+require_once('_subjects.php');
 
 
 function generate_random_string($length) {

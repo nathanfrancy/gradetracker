@@ -102,9 +102,9 @@ angular.module('dashboardApp').factory('standardFactory', ['$http', function($ht
     dataFactory.getStandardsFromSchoolYear = function (id) {
         return $http.get('/api/get.php?rq=getStandardsFromSchoolYear&id=' + id);
     };
-    dataFactory.addStandard = function (standard, schoolyear) {
+    dataFactory.addStandard = function (standard, schoolyear, subject) {
         return $http({ url: '/api/add.php', dataType: 'json', method: 'PUT',
-                    data: { rq: 'addStandard', title: standard.title, description: standard.description, date_given: standard.date_given, schoolyear_id: schoolyear.id }, headers: { "Content-Type": "application/json"}});
+                    data: { rq: 'addStandard', title: standard.title, description: standard.description, date_given: standard.date_given, schoolyear_id: schoolyear.id, subject_id: subject.id }, headers: { "Content-Type": "application/json"}});
     };
     dataFactory.getStandard = function (id) {
         return $http.get('/api/get.php?rq=getStandard&id='+ id);
@@ -132,6 +132,20 @@ angular.module('dashboardApp').factory('gradeFactory', ['$http', function($http)
     dataFactory.recordStandardGrades = function (students, standard) {
         return $http({ url: '/api/add.php', dataType: 'json', method: 'PUT',
                     data: { rq: "recordStandardGrades", students: students, standard: standard }, headers: { "Content-Type": "application/json"}});
+    };
+
+    return dataFactory;
+}]);
+
+angular.module('dashboardApp').factory('subjectFactory', ['$http', function($http) {
+    var dataFactory = {};
+
+    dataFactory.addSubject = function (subject, schoolyear) {
+        return $http({ url: '/api/add.php', dataType: 'json', method: 'PUT',
+                    data: { rq: 'addSubject', title: subject.title, schoolyear_id: schoolyear.id }, headers: { "Content-Type": "application/json"}});
+    };
+    dataFactory.getSubjectsFromSchoolYear = function (schoolyear_id) {
+        return $http.get('/api/get.php?rq=getSubjectsFromSchoolYear&id=' + schoolyear_id);
     };
 
     return dataFactory;

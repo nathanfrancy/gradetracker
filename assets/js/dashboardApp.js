@@ -72,6 +72,12 @@ $routeProvider
           controller: 'StandardRecordGradesCtrl',
           templateUrl: 'partials/standard/_standard_recordgrades.html'
         })
+
+    .when('/browse/schoolyear/:schoolYearId/addsubject',
+      {
+          controller: 'SubjectAddCtrl',
+          templateUrl: 'partials/subject/subject_add.html'
+      })
     
     .otherwise({redirectTo: '/browse'})
 });

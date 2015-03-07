@@ -70,7 +70,20 @@ if (isset($_SESSION['auth_id'])) {
 
         else if ($rq === "addStandard") {
             if ($title !== null && $date_given !== null) {
-                $newid = addStandard($title, $description, $date_given, $schoolyear_id);
+                $newid = addStandard($title, $description, $date_given, $schoolyear_id, $subject_id);
+                $response['response'] = "success";
+                $response['message'] = "Successfully added {$title}.";
+                $response['newid'] = $newid;
+            }
+            else {
+                $response['response'] = "fail";
+                $response['message'] = "Title and date given are required.";
+            }
+        }
+
+        else if ($rq === "addSubject") {
+            if ($title !== null) {
+                $newid = addSubjectToSchoolYear($title, $schoolyear_id);
                 $response['response'] = "success";
                 $response['message'] = "Successfully added {$title}.";
                 $response['newid'] = $newid;

@@ -15,6 +15,12 @@
                 <input ng-model="standard.description" type="text" class="form-control" placeholder="Enter description">
             </div>
             <div class="form-group">
+                <label>Subject</label>
+                <select class="form-control" ng-model="subject">
+                    <option ng-repeat="subj in possiblesubjects" value="{{ subj.id }}">{{ subj.title }}</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label>Date Given</label>
                 <div ng-controller="DatepickerDemoCtrl">
                     <p class="input-group">
