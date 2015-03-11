@@ -17,6 +17,7 @@ $schoolyear_id = $data->schoolyear_id;
 $date_given = $data->date_given;
 $students = $data->students;
 $standard = $data->standard;
+$subject_id = $data->subject_id;
 
 // Variables for school year quarters
 $q1_start = $data->q1_start;
@@ -69,7 +70,7 @@ if (isset($_SESSION['auth_id'])) {
 
 
         else if ($rq === "addStandard") {
-            if ($title !== null && $date_given !== null) {
+            if ($title !== null && $date_given !== null && $subject_id != null) {
                 $newid = addStandard($title, $description, $date_given, $schoolyear_id, $subject_id);
                 $response['response'] = "success";
                 $response['message'] = "Successfully added {$title}.";
@@ -77,7 +78,7 @@ if (isset($_SESSION['auth_id'])) {
             }
             else {
                 $response['response'] = "fail";
-                $response['message'] = "Title and date given are required.";
+                $response['message'] = "Title, subject and date given are required.";
             }
         }
 
