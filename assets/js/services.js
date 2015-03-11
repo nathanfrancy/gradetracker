@@ -102,9 +102,9 @@ angular.module('dashboardApp').factory('standardFactory', ['$http', function($ht
     dataFactory.getStandardsFromSchoolYear = function (id) {
         return $http.get('/api/get.php?rq=getStandardsFromSchoolYear&id=' + id);
     };
-    dataFactory.addStandard = function (standard, schoolyear, subject) {
+    dataFactory.addStandard = function (standard, schoolyear, subject_id) {
         return $http({ url: '/api/add.php', dataType: 'json', method: 'PUT',
-                    data: { rq: 'addStandard', title: standard.title, description: standard.description, date_given: standard.date_given, schoolyear_id: schoolyear.id, subject_id: subject.id }, headers: { "Content-Type": "application/json"}});
+                    data: { rq: 'addStandard', title: standard.title, description: standard.description, date_given: standard.date_given, schoolyear_id: schoolyear.id, subject_id: subject_id }, headers: { "Content-Type": "application/json"}});
     };
     dataFactory.getStandard = function (id) {
         return $http.get('/api/get.php?rq=getStandard&id='+ id);

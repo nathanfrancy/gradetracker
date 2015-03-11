@@ -20,8 +20,8 @@ function ($scope, $window, $routeParams, standardFactory, studentFactory, school
     $scope.add = function() {
         var temp = new Date($scope.standard.date_given);
         $scope.standard.date_given =  temp.getFullYear() + "-" + (temp.getMonth()+1) + "-" + temp.getDate();
-        
-        standardFactory.addStandard($scope.standard, $scope.schoolyear, $scope.subject)
+
+        standardFactory.addStandard($scope.standard, $scope.schoolyear, $scope.subjectid)
             .success(function (data) {
                 alertService.alert("Successfully added "+ $scope.standard.title +".", "success", 3);
                 $window.location.href = '#/browse/schoolyear/' + $scope.schoolyear.id;
